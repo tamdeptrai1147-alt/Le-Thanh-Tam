@@ -3,11 +3,11 @@
 session_start();
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'dragoncore'); // Đã đổi tên theo db_init.sql
+define('DB_NAME', 'dragoncore'); // <-- ĐÃ SỬA LẠI THÀNH 'dragoncore'
 define('DB_USER', 'root');
-define('DB_PASS', ''); // <-- Thay bằng mật khẩu DB của bạn
+define('DB_PASS', ''); // <-- THAY BẰNG MẬT KHẨU DB CỦA BẠN (Nếu không có mật khẩu thì giữ nguyên '')
 
-// Image path sample (URL ảnh placeholder)
+// Image path sample (Sử dụng placeholder để đảm bảo ảnh sản phẩm hiển thị)
 define('SAMPLE_IMAGE', 'https://via.placeholder.com/200x150/1f1f1f/cc0000?text=NO+IMAGE');
 
 function db() {
@@ -18,6 +18,7 @@ function db() {
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         ];
+        // Thử kết nối, nếu lỗi sẽ ném ra PDOException
         $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
     }
     return $pdo;

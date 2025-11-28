@@ -19,7 +19,7 @@ body {
 
 .container {
     padding: 20px;
-    max-width: 1200px;
+    max-width: 1400px; /* <--- ĐÃ TĂNG MAX-WIDTH cho không gian rộng hơn */
     margin: auto;
 }
 
@@ -61,19 +61,37 @@ header h1 {
     font-size: 1.1em;
 }
 
-/* BANNER */
+/* BANNER - Phiên bản Lớn và Ấn tượng */
 .banner {
-    /* Thay ảnh placeholder bằng URL ảnh thực tế của bạn */
-    background: url('https://via.placeholder.com/1200x300/121212/cc0000?text=MSI+GAMING+SHOP+BANNER') center center / cover no-repeat;
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 2.5em;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-    margin-bottom: 20px;
+    display: block; 
+    /* Chiếm 90% màn hình để có viền đẹp hơn */
+    width: 95%; /* Đã tăng lên 95% để rộng hơn nữa */
+    margin: 0 auto 30px auto; 
+    
+    /* Hiệu ứng đẹp nhất cho Dark Mode */
+    border-radius: 12px; 
+    box-shadow: 0 10px 30px rgba(204, 0, 0, 0.5), /* Bóng đỏ nổi bật (Glow effect) */
+                0 0 20px rgba(0, 0, 0, 0.9); 
+    overflow: hidden; 
+    border: 2px solid var(--primary-color); 
 }
+
+/* Định dạng cho ảnh bên trong banner */
+.banner img {
+    width: 100%; 
+    height: 450px; /* <--- ĐÃ TĂNG LÊN 450PX (RẤT BỰ) */
+    object-fit: cover; /* Đảm bảo ảnh lấp đầy toàn bộ khu vực */
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s; 
+}
+
+/* Hiệu ứng rê chuột */
+.banner img:hover {
+    transform: scale(1.02); /* Phóng to 2% khi rê chuột */
+    filter: brightness(1.1); /* Sáng hơn một chút khi rê chuột */
+    cursor: pointer;
+}
+
 
 /* SEARCH FORM */
 .search-form {
@@ -153,4 +171,117 @@ input[type="text"], button {
 .product-card a:hover {
     background-color: #ff3333;
     color: white;
+}
+/* --- PRODUCT DETAIL STYLES --- */
+
+.container.product-detail {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.product-detail h2 {
+    text-align: center;
+    font-size: 2.5em;
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+.detail-content {
+    display: flex;
+    gap: 40px;
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+    align-items: flex-start;
+}
+
+.detail-content img {
+    flex-shrink: 0;
+    width: 450px; /* Kích thước lớn hơn cho ảnh chi tiết */
+    height: 350px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 3px solid var(--secondary-color);
+}
+
+.detail-content .info {
+    flex-grow: 1;
+}
+
+.price-big {
+    font-size: 1.8em;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+.price-big strong {
+    color: var(--primary-color);
+    font-size: 1.5em;
+}
+
+.stock-status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+.stock-in {
+    background-color: #008000; /* Xanh lá */
+    color: white;
+}
+.stock-out {
+    background-color: #800000; /* Đỏ đậm */
+    color: white;
+}
+
+.description-box {
+    margin-top: 15px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    border-radius: 6px;
+    white-space: pre-wrap; /* Giữ định dạng xuống dòng */
+}
+
+.actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+.add-to-cart-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+.add-to-cart-btn:hover {
+    background-color: #ff3333;
+}
+
+.back-btn {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    padding: 12px 25px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+.back-btn:hover {
+    background-color: #777;
+}
+
+/* Responsive cơ bản cho màn hình nhỏ hơn */
+@media (max-width: 900px) {
+    .detail-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    .detail-content img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
 }
