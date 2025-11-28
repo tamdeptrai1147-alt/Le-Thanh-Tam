@@ -3,11 +3,11 @@
 session_start();
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'dragoncore'); // Đã thay đổi theo DB của bạn
+define('DB_NAME', 'dragoncore'); // Đã đổi tên theo db_init.sql
 define('DB_USER', 'root');
-define('DB_PASS', ''); // <-- thay bằng mật khẩu DB của bạn
+define('DB_PASS', ''); // <-- Thay bằng mật khẩu DB của bạn
 
-// Image path sample (đã thay bằng placeholder để ảnh hiển thị)
+// Image path sample (URL ảnh placeholder)
 define('SAMPLE_IMAGE', 'https://via.placeholder.com/200x150/1f1f1f/cc0000?text=NO+IMAGE');
 
 function db() {

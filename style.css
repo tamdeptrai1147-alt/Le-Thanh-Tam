@@ -1,4 +1,4 @@
-/* style.css - Giao diện Dark Mode & Gaming (Áp dụng cho toàn bộ dự án) */
+/* style.css - Giao diện Dark Mode & Gaming */
 
 :root {
     --bg-color: #121212; /* Nền tối */
@@ -63,6 +63,7 @@ header h1 {
 
 /* BANNER */
 .banner {
+    /* Thay ảnh placeholder bằng URL ảnh thực tế của bạn */
     background: url('https://via.placeholder.com/1200x300/121212/cc0000?text=MSI+GAMING+SHOP+BANNER') center center / cover no-repeat;
     height: 300px;
     display: flex;
@@ -74,41 +75,26 @@ header h1 {
     margin-bottom: 20px;
 }
 
-/* FORMS & INPUTS */
+/* SEARCH FORM */
 .search-form {
     padding: 20px 20px 0;
     text-align: center;
     margin-bottom: 20px;
 }
-input[type="text"], input[type="number"], input[type="password"], textarea {
-    padding: 10px 15px;
+input[type="text"], button {
+    padding: 10px 20px;
     border: 1px solid var(--border-color);
     background-color: var(--card-bg);
     color: var(--text-color);
     border-radius: 5px;
     font-size: 1em;
-    margin-bottom: 10px;
-    width: 90%;
-    max-width: 300px;
-    box-sizing: border-box;
 }
-
-button {
+.search-form button {
     background-color: var(--primary-color);
-    color: white;
-    border: 1px solid var(--primary-color);
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s;
-}
-button:hover {
-    background-color: #ff3333;
-}
-.btn-small {
-    padding: 5px 10px;
-    font-size: 0.9em;
+    border-color: var(--primary-color);
+    font-weight: bold;
+    margin-left: 10px;
 }
 
 /* PRODUCT GRID */
@@ -164,36 +150,7 @@ button:hover {
     color: var(--primary-color);
     border: 1px solid var(--primary-color);
 }
-.product-card a.detail:hover {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-}
-
-/* TABLE STYLES (Giỏ hàng & Admin) */
-.data-table {
-    border-collapse: collapse;
-    width: 100%;
-    color: var(--text-color);
-    margin-top: 20px;
-}
-.data-table th, .data-table td {
-    border: 1px solid var(--border-color);
-    padding: 12px;
-    text-align: left;
-}
-.data-table th {
-    background-color: #000;
-    color: var(--primary-color);
-    font-size: 1.1em;
-}
-.data-table tr:nth-child(even) {
-    background-color: #242424;
-}
-.data-table tr:hover {
-    background-color: #333;
-}
-.total-row td {
-    font-weight: bold;
-    color: var(--primary-color) !important;
-    background-color: #000 !important;
+.product-card a:hover {
+    background-color: #ff3333;
+    color: white;
 }
