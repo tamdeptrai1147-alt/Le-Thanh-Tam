@@ -20,4 +20,4 @@
     }
 
     include "view/footer.php";
-?>
+?>a
