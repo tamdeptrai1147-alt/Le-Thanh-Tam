@@ -10,7 +10,7 @@ if ($q !== '') {
     $params[] = "%$q%";
     $params[] = "%$q%";
 }
-$sql .= " ORDER BY created_at DESC LIMIT 50";
+$sql .= " ORDER BY id DESC LIMIT 50";
 $stmt = db()->prepare($sql);
 $stmt->execute($params);
 $products = $stmt->fetchAll();

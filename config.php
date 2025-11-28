@@ -3,7 +3,7 @@
 session_start();
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'shopdb');
+define('DB_NAME', 'dragoncore');
 define('DB_USER', 'root');
 define('DB_PASS', ''); // <-- thay bằng mật khẩu DB của bạn
 
