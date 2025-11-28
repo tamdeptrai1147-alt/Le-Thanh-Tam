@@ -3,12 +3,12 @@
 session_start();
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'dragoncore');
+define('DB_NAME', 'dragoncore'); // Đã thay đổi theo DB của bạn
 define('DB_USER', 'root');
 define('DB_PASS', ''); // <-- thay bằng mật khẩu DB của bạn
 
-// Image path sample (ảnh bạn đã upload)
-define('SAMPLE_IMAGE', '/mnt/data/14063df0-aaa3-43f8-9048-017ee16ddadf.png');
+// Image path sample (đã thay bằng placeholder để ảnh hiển thị)
+define('SAMPLE_IMAGE', 'https://via.placeholder.com/200x150/1f1f1f/cc0000?text=NO+IMAGE');
 
 function db() {
     static $pdo;
