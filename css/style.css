@@ -1,20 +1,127 @@
-body { font-family: sans-serif; margin: 0; background-color: #f4f4f4; }
-.container { width: 90%; margin: 0 auto; background-color: #fff; }
+/* ================================================= */
+/* GIAO DIỆN FULL DARK MODE (GAMING)        */
+/* ================================================= */
 
-/* Header */
-header { background: #000; color: #fff; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
-nav a { color: #fff; text-decoration: none; margin-left: 20px; font-weight: bold; }
+/* 1. CẤU HÌNH CHUNG (NỀN ĐEN - CHỮ TRẮNG) */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+body, html {
+    background-color: #050505 !important; /* Đen gần tuyệt đối */
+    color: #fff !important;               /* Chữ trắng toàn web */
+    width: 100%;
+    overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
 
-/* Tiêu đề */
-h2 { text-align: center; margin-top: 30px; color: #333; }
+/* 2. HEADER (ĐEN TUYỀN) */
+header {
+    background-color: #000;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    border-bottom: 1px solid #222; /* Viền xám mờ ngăn cách */
+}
+.logo a {
+    color: #d0021b; font-size: 24px; font-weight: bold; 
+    border: 2px solid #d0021b; padding: 5px 15px; letter-spacing: 2px;
+}
+nav ul { display: flex; gap: 30px; }
+nav ul li a { color: #ccc; font-weight: bold; text-transform: uppercase; font-size: 14px; }
+nav ul li a:hover { color: #d0021b; text-shadow: 0 0 10px #d0021b; } /* Hiệu ứng neon */
+.header-icons { display: flex; gap: 20px; color: #fff; }
 
-/* Lưới sản phẩm */
-.row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 20px; }
-.boxsp { border: 1px solid #ddd; padding: 15px; text-align: center; background: #fff; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-.boxsp img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; }
-.price { color: red; font-weight: bold; font-size: 1.2rem; margin: 10px 0; }
-button { background: #000; color: #fff; padding: 10px 20px; cursor: pointer; border: none; border-radius: 3px; }
-button:hover { background: #333; }
+/* 3. BANNER (GIỮ NGUYÊN) */
+.banner img { width: 100%; height: 600px; object-fit: cover; display: block; }
+.slideshow-container { position: relative; width: 100%; }
+.mySlides { display: none; }
+.fade { animation-name: fade; animation-duration: 3s; }
+@keyframes fade { from {opacity: 0.4} to {opacity: 1} }
+.prev, .next {
+  cursor: pointer; position: absolute; top: 50%; width: auto; padding: 16px; margin-top: -22px;
+  color: white; font-weight: bold; font-size: 18px; transition: 0.3s;
+  background-color: rgba(0,0,0,0.5);
+}
+.next { right: 0; }
+.prev:hover, .next:hover { background-color: #d0021b; }
 
-/* Footer */
-footer { background: #000; color: #fff; text-align: center; padding: 20px; margin-top: 20px; }
+/* 4. DANH MỤC (HỘP MÀU TỐI) */
+.category-section {
+    display: flex; justify-content: center; gap: 30px; padding: 0 50px;
+    margin-top: -50px; position: relative; z-index: 10;
+}
+.cate-box {
+    background: #1a1a1a; /* Nền xám đen */
+    width: 200px; padding: 20px 10px; text-align: center;
+    border-radius: 5px;
+    border: 1px solid #333; /* Viền mờ */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    transition: 0.3s;
+}
+.cate-box:hover {
+    transform: translateY(-5px);
+    border-color: #d0021b; /* Hover ra viền đỏ */
+    background: #000;
+}
+.cate-box a { color: #fff; font-weight: bold; display: block; text-transform: uppercase; }
+.cate-box i { font-size: 30px; color: #d0021b; margin-bottom: 10px; display: block; }
+
+/* 5. TIÊU ĐỀ CHUNG */
+h2 {
+    text-align: center; margin: 50px 0 30px 0; 
+    text-transform: uppercase; color: #fff; letter-spacing: 1px;
+}
+
+/* 6. SẢN PHẨM (HỘP MÀU TỐI) */
+.container { width: 1200px; margin: 0 auto; }
+.product-row { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+
+/* Box Sản Phẩm - ĐEN HUYỀN BÍ */
+.pc-card, .boxsp {
+    background: #111; /* Nền hộp đen xám */
+    width: 280px; padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #333; /* Viền xám */
+    transition: 0.3s;
+    text-align: center;
+}
+.pc-card:hover, .boxsp:hover {
+    border-color: #d0021b; /* Hover sáng viền đỏ */
+    box-shadow: 0 0 15px rgba(208, 2, 27, 0.3); /* Phát sáng nhẹ */
+    transform: translateY(-5px);
+}
+
+.img-box img, .boxsp img { width: 100%; height: 200px; object-fit: contain; background: #fff; padding: 10px; border-radius: 3px; }
+.pc-name, h3 { color: #fff; font-size: 14px; font-weight: bold; margin: 10px 0; display: block; text-transform: uppercase; }
+.pc-name:hover { color: #d0021b; }
+
+.price-new, .price { color: #d0021b; font-weight: bold; font-size: 16px; display: block; margin-bottom: 10px; }
+del { color: #666; font-size: 12px; }
+
+/* Nút bấm trong sản phẩm */
+.btn-buy, button {
+    background: #d0021b; color: #fff; border: none; padding: 10px 0;
+    width: 100%; font-weight: bold; border-radius: 3px; cursor: pointer; text-transform: uppercase;
+}
+.btn-buy:hover, button:hover { background: #ff0000; box-shadow: 0 0 10px #ff0000; }
+
+/* 7. PHẦN VỀ CHÚNG TÔI (ABOUT) - CHUẨN ĐEN */
+.about-section, .black-zone {
+    background-color: #000 !important;
+    border-top: 1px solid #222;
+    margin-top: 80px;
+    padding: 60px 0;
+}
+.about-content h2 { border-left: 5px solid #d0021b; padding-left: 15px; text-align: left; margin-top: 0; }
+.about-text p { color: #ccc; text-align: justify; line-height: 1.6; }
+
+/* 8. FOOTER */
+footer {
+    background-color: #080808 !important; /* Đen đậm */
+    color: #666;
+    text-align: center;
+    padding: 30px 0;
+    border-top: 1px solid #222;
+    margin-top: 0;
+}
