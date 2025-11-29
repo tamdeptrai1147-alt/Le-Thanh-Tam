@@ -65,4 +65,18 @@
             }
         ?>
     </div>
+    <?php
+// DÁN ĐOẠN NÀY VÀO CUỐI FILE viewcart.php
+
+// Kiểm tra xem có thông báo được gửi từ Session không
+if(isset($_SESSION['thongbao']) && $_SESSION['thongbao'] != ""){
+    echo '<script>';
+    // Hiển thị thông báo bằng JavaScript Alert
+    echo 'alert("' . $_SESSION['thongbao'] . '");'; 
+    echo '</script>';
+    
+    // Xóa ngay thông báo khỏi Session để lần sau tải trang không hiện lại
+    unset($_SESSION['thongbao']); 
+}
+?>
 </main>
