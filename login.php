@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!doctype html><html><head><meta charset="utf-8"><title>Đăng nhập</title>
 <link rel="stylesheet" href="style.css">
 </head><body>
-<header><h1><a href="index.php">Shop</a></h1></header>
+<header><h1><a href="index.php">dragoncore</a></h1></header>
 <div class="container" style="text-align:center; max-width: 400px; margin-top: 50px; background-color: var(--card-bg); padding: 20px; border-radius: 8px;">
   <h2>Đăng nhập</h2>
   <?php if ($error): ?><p style="color:var(--primary-color); font-weight: bold;"><?=h($error)?></p><?php endif; ?>

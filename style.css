@@ -285,3 +285,15 @@ input[type="text"], button {
         height: auto;
     }
 }
+/* ... (Giữ nguyên toàn bộ code style.css cũ) ... */
+
+/* --- SECTION TITLE --- */
+.section-title {
+    text-align: center;
+    font-size: 2em;
+    color: var(--text-color);
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 15px;
+    margin: 40px auto 20px auto; /* Căn giữa và tạo khoảng cách */
+    max-width: 90%; /* Chiều rộng cho tiêu đề */
+}
