@@ -62,21 +62,22 @@
         <div class="header-icons">
             <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a> 
             <a href="index.php?act=viewcart"><i class="fa-solid fa-cart-shopping"></i></a> 
-            
-            <?php 
-            // Kiểm tra đã đăng nhập chưa để hiện tên hoặc nút đăng nhập
-            if(isset($_SESSION['user']) && is_array($_SESSION['user']) && isset($_SESSION['user']['user'])){
-                echo '<a href="index.php?act=thongtin"><i class="fa-regular fa-user"></i> Xin chào <strong>'.$_SESSION['user']['user'].'</strong></a>';
-                echo '<a href="index.php?act=thoat" style="color: #b20000; font-weight: bold; margin-left: 10px;">Đăng xuất</a>';
-          // ... đoạn if(isset($_SESSION['user'])... giữ nguyên
 
-            } else {
-                // Tách ra 2 link riêng biệt cho dễ bấm
-                echo '<i class="fa-regular fa-user" style="margin-right: 5px;"></i>';
-                echo '<a href="index.php?act=dangnhap" style="font-weight:bold;">Đăng nhập</a>';
-                echo ' <span style="color:#fff">/</span> ';
-                echo '<a href="index.php?act=dangky" style="font-weight:bold;">Đăng ký</a>';
-            }
-            ?>
+            <div class="box-user">
+                <i class="fa-regular fa-user" style="font-size: 18px;"></i>
+                
+                <?php if(isset($_SESSION['user'])) echo '<span style="font-size:13px; margin-left:5px; font-weight:bold;">'.$_SESSION['user']['user'].'</span>'; ?>
+
+                <div class="user-dropdown">
+                    <?php if(isset($_SESSION['user'])){ ?>
+                        <a href="index.php?act=mybill"><i class="fa-solid fa-receipt"></i> Đơn hàng</a>
+                        <a href="index.php?act=thongtin"><i class="fa-solid fa-user-gear"></i> Tài khoản</a>
+                        <a href="index.php?act=thoat" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                    <?php } else { ?>
+                        <a href="index.php?act=dangnhap"><i class="fa-solid fa-arrow-right-to-bracket"></i> Đăng nhập</a>
+                        <a href="index.php?act=dangky"><i class="fa-solid fa-user-plus"></i> Đăng ký</a>
+                    <?php } ?>
+                </div>
+            </div>
         </div>
     </header>

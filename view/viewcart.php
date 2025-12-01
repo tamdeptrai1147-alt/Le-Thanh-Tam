@@ -1,82 +1,109 @@
-<main>
-    <div class="container" style="margin-top: 50px; min-height: 400px;">
-        <h2 style="margin-bottom: 30px; text-align: center;">GIỎ HÀNG CỦA BẠN</h2>
+<main class="cart-page">
+    <div class="cart-container">
+        <h2 class="cart-header">Giỏ hàng của bạn</h2>
 
         <?php
-            // Kiểm tra giỏ hàng có rỗng không
-            if(isset($_SESSION['mycart']) && (count($_SESSION['mycart']) > 0)){
-                echo '
-                <table style="width: 100%; border-collapse: collapse; text-align: center;">
-                    <thead style="background: #000; color: #fff; font-weight: bold;">
-                        <tr>
-                            <th style="padding: 15px;">Hình ảnh</th>
-                            <th>Sản phẩm</th>
-                            <th>Đơn giá</th>
-                            <th>Số lượng</th>
-                            <th>Thành tiền</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                ';
-
-                $tong = 0;
-                $i = 0;
-                foreach ($_SESSION['mycart'] as $cart) {
-                    $hinh = "img/" . $cart[2];
-                    $ttien = $cart[3] * $cart[4];
-                    $tong += $ttien;
-                    
-                    // Link xóa sản phẩm
-                    $xoasp = '<a href="index.php?act=delcart&idcart='.$i.'"><button style="background: red; color: white; border: none; padding: 5px 10px; cursor: pointer;">Xóa</button></a>';
-
-                    echo '
-                        <tr style="border-bottom: 1px solid #ddd;">
-                            <td style="padding: 10px;"><img src="'.$hinh.'" height="80px"></td>
-                            <td>'.$cart[1].'</td>
-                            <td style="color: #d0021b; font-weight: bold;">'.number_format($cart[3]).' đ</td>
-                            <td>'.$cart[4].'</td>
-                            <td style="color: #d0021b; font-weight: bold;">'.number_format($ttien).' đ</td>
-                            <td>'.$xoasp.'</td>
-                        </tr>
-                    ';
-                    $i++;
-                }
+        if(isset($_SESSION['mycart']) && (count($_SESSION['mycart']) > 0)){
+            // --- DANH SÁCH SẢN PHẨM ---
+            $tong = 0;
+            $i = 0;
+            foreach ($_SESSION['mycart'] as $cart) {
+                $hinh = "img/" . $cart[2];
+                $ttien = $cart[3] * $cart[4];
+                $tong += $ttien;
+                $xoasp = 'index.php?act=delcart&idcart='.$i;
 
                 echo '
-                    </tbody>
-                </table>
-                
-                <div style="text-align: right; margin-top: 30px;">
-                    <h3 style="margin-bottom: 20px;">Tổng đơn hàng: <span style="color: red; font-size: 24px;">'.number_format($tong).' VNĐ</span></h3>
-                    
-                    <a href="index.php?act=products">
-                        <button style="padding: 15px 30px; background: #333; color: white; border: none; font-weight: bold; cursor: pointer; margin-right: 10px;">TIẾP TỤC MUA HÀNG</button>
-                    </a>
-                    
-                    <a href="#"> <button style="padding: 15px 30px; background: #d0021b; color: white; border: none; font-weight: bold; cursor: pointer;">THANH TOÁN NGAY</button>
-                    </a>
-                </div>
-                ';
-
-            } else {
-                echo '<h3 style="text-align: center; color: #777;">Giỏ hàng trống trơn! Mua sắm đi bạn ơi.</h3>';
-                echo '<div style="text-align: center; margin-top: 20px;"><a href="index.php?act=products"><button style="padding: 10px 20px; background: #d0021b; color: white; border: none;">Vào xem sản phẩm</button></a></div>';
+                <div class="cart-item">
+                    <div style="display:flex; align-items:center;">
+                        <img src="'.$hinh.'" alt="'.$cart[1].'">
+                        <div class="item-info">
+                            <div class="item-name">'.$cart[1].'</div>
+                            <div class="item-meta">Mã SP: #'.$cart[0].' | Bảo hành: 36 Tháng</div>
+                            <div style="color: green; font-size: 13px;">Kho hàng: Còn hàng</div>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="item-price">'.number_format($cart[3]).' đ</div>
+                        <div style="display:flex; align-items:center; margin-top:5px; justify-content: flex-end;">
+                            
+                            <div class="qty-box">
+                                <a href="index.php?act=dec_cart&i='.$i.'" class="qty-btn" style="text-decoration: none;">-</a>
+                                <input type="text" value="'.$cart[4].'" class="qty-input" readonly>
+                                <a href="index.php?act=inc_cart&i='.$i.'" class="qty-btn" style="text-decoration: none;">+</a>
+                            </div>
+                            
+                            <a href="'.$xoasp.'" class="btn-del"><i class="fa-solid fa-trash-can"></i></a>
+                        </div>
+                    </div>
+                </div>';
+                $i++;
             }
+
+            // --- PHẦN FORM THANH TOÁN & TỔNG KẾT (Giữ nguyên) ---
+            echo '
+            <div class="checkout-row">
+                <div class="col-info">
+                    <h3 class="checkout-title">Thông tin khách hàng</h3>
+                    <form action="index.php?act=bill" method="post">
+                        <div class="form-group">
+                            <input type="text" name="hoten" class="form-control" placeholder="Họ và tên *" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control" placeholder="Email *" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="tel" class="form-control" placeholder="Điện thoại *" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="address" class="form-control" placeholder="Địa chỉ chi tiết *" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="note" class="form-control" placeholder="Ghi chú thêm (nếu có)" rows="3"></textarea>
+                        </div>
+                </div>  
+
+                <div class="col-payment">
+                    <h3 class="checkout-title">Hình thức thanh toán</h3>
+                    <label class="payment-method"><input type="radio" name="pttt" value="1" checked> Thanh toán tiền mặt khi nhận hàng (COD)</label>
+                    <label class="payment-method"><input type="radio" name="pttt" value="2"> Chuyển khoản ngân hàng (QR Code)</label>
+                    <label class="payment-method"><input type="radio" name="pttt" value="3"> Thanh toán qua thẻ ATM/Visa/Master</label>
+                    <label class="payment-method"><input type="radio" name="pttt" value="4"> Trả góp qua thẻ tín dụng (0%)</label>
+                </div>
+
+                <div class="col-summary">
+                    <h3 class="checkout-title">Mã giảm giá / Quà tặng</h3>
+                    <div style="display:flex; gap:5px; margin-bottom:15px;">
+                        <input type="text" class="form-control" placeholder="Nhập mã giảm giá">
+                        <button style="background: #d0021b; color: #fff; border: none; border-radius: 4px; padding: 0 15px; font-weight: bold; cursor: pointer;">Áp dụng</button>
+                    </div>
+
+                    <div class="summary-box">
+                        <div class="summary-row"><span>Tổng tiền hàng:</span> <span>'.number_format($tong).' đ</span></div>
+                        <div class="summary-row"><span>Giảm giá:</span> <span>0 đ</span></div>
+                        <div class="summary-row" style="border-top: 1px dashed #ddd; padding-top: 10px; margin-top: 10px;">
+                            <span style="font-weight: bold;">Cần thanh toán:</span>
+                            <span class="summary-total">'.number_format($tong).' đ</span>
+                        </div>
+                        <div style="font-size: 12px; color: #777; text-align: right; margin-top: 5px;">(Giá chưa bao gồm VAT)</div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <button type="submit" name="dongydathang" class="btn-order">ĐẶT HÀNG</button>
+                        <button type="submit" name="dongydathang" value="1" class="btn-order">ĐẶT HÀNG</button>
+                        <button type="button" class="btn-installment">MUA TRẢ GÓP</button>
+                        <a href="index.php?act=products"><button type="button" class="btn-continue">CHỌN THÊM SẢN PHẨM</button></a>
+                    </div>
+                    </form> 
+                </div>
+            </div>';
+
+        } else {
+            echo '<div style="text-align: center; padding: 50px;">
+                    <p>Giỏ hàng trống trơn!</p>
+                    <a href="index.php?act=products" style="color: red; font-weight: bold;">Quay lại mua hàng</a>
+                  </div>';
+        }
         ?>
     </div>
-    <?php
-// DÁN ĐOẠN NÀY VÀO CUỐI FILE viewcart.php
-
-// Kiểm tra xem có thông báo được gửi từ Session không
-if(isset($_SESSION['thongbao']) && $_SESSION['thongbao'] != ""){
-    echo '<script>';
-    // Hiển thị thông báo bằng JavaScript Alert
-    echo 'alert("' . $_SESSION['thongbao'] . '");'; 
-    echo '</script>';
-    
-    // Xóa ngay thông báo khỏi Session để lần sau tải trang không hiện lại
-    unset($_SESSION['thongbao']); 
-}
-?>
 </main>
