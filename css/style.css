@@ -125,3 +125,65 @@ footer {
     border-top: 1px solid #222;
     margin-top: 0;
 }
+/* --- FIX LỖI MENU XỔ XUỐNG (Dán vào cuối style.css) --- */
+
+/* 1. Tạo cái khung nền đen cho menu con */
+.mega-menu {
+    display: none;       /* Bình thường thì ẩn đi */
+    position: absolute;  /* Để nó nằm đè lên trên banner */
+    top: 100%;           /* Nằm ngay dưới chữ Linh Kiện */
+    left: -100px;        /* Canh chỉnh qua trái xíu cho đẹp */
+    width: 1100px;       /* Độ rộng của bảng menu */
+    background: #000;    /* Nền màu ĐEN */
+    border: 1px solid #333; /* Viền xám mờ */
+    border-top: 3px solid #d0021b; /* Viền đỏ trên đầu */
+    padding: 30px;
+    z-index: 9999;       /* Luôn nổi lên trên cùng */
+}
+
+/* 2. Khi rê chuột vào thì hiện menu lên */
+.has-mega-menu:hover .mega-menu {
+    display: block;
+}
+
+/* 3. Chia cột bên trong */
+.mega-content {
+    display: flex;       /* Chia làm nhiều cột */
+    justify-content: space-between;
+}
+.mega-col { width: 24%; } /* Mỗi cột rộng khoảng 24% */
+
+/* 4. Trang trí tiêu đề (VD: VI XỬ LÝ & MAIN) */
+.mega-col h3 {
+    color: #d0021b;      /* Chữ màu đỏ */
+    font-size: 14px;
+    border-bottom: 1px solid #333; /* Gạch chân mờ */
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* 5. QUAN TRỌNG: Ép danh sách con xếp dọc (Sửa lỗi bị ngang) */
+.mega-col ul {
+    display: block !important; /* Bắt buộc xếp dọc */
+    padding: 0;
+}
+
+.mega-col ul li {
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+.mega-col ul li a {
+    color: #ccc;         /* Chữ màu xám */
+    font-size: 13px;
+    text-transform: none; /* Không viết hoa */
+    display: block;
+    text-align: left;
+    padding: 5px 0;
+}
+
+.mega-col ul li a:hover {
+    color: #fff;         /* Rê chuột vào đổi màu trắng */
+    transform: translateX(5px); /* Dịch sang phải xíu */
+}
