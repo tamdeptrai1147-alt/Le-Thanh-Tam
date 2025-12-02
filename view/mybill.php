@@ -30,12 +30,12 @@
                     if($bill_status == 2) $tt = "Đang giao hàng";
                     if($bill_status == 3) $tt = "Đã giao hàng";
 
-                    // 2. Đếm số lượng thật (Thay vì số 1)
-                    // Lưu ý: Ông phải có hàm count_item_cart trong model/bill.php nhé
-                    $count_sp = function_exists('count_item_cart') ? count_item_cart($id) : 1;
-                    
-                    // 3. Xử lý ngày đặt (Nếu chưa có thì hiện mặc định)
-                    $show_date = ($ngaydathang != "") ? $ngaydathang : "Vừa đặt";
+                    // 2. GỌI HÀM ĐẾM SỐ LƯỢNG TỪ MODEL
+                    // (Hàm count_item_cart ông đã có trong model/bill.php rồi nên gọi thoải mái)
+                    $count_sp = count_item_cart($id); 
+
+                    // 3. Xử lý ngày đặt
+                    $show_date = ($ngaydathang != "") ? $ngaydathang : "Đang cập nhật";
 
                     echo '
                         <tr style="border-bottom: 1px solid #ddd; text-align: center; background: #fff;">
@@ -43,7 +43,7 @@
                                 <a href="index.php?act=mybill_detail&idbill='.$id.'" style="color: #d0021b; font-weight: bold; text-decoration: underline;">DC-'.$id.'</a>
                             </td>
                             <td>'.$show_date.'</td>
-                            <td>'.$count_sp.' món</td>
+                            <td style="font-weight: bold; color: #333;">'.$count_sp.' món</td>
                             <td style="color: #d0021b; font-weight: bold;">'.number_format($total).' đ</td>
                             <td><span style="padding: 5px 10px; background: #b11a1aff; color: #fff; border-radius: 4px; font-size: 12px;">'.$tt.'</span></td>
                         </tr>
@@ -54,12 +54,10 @@
 
             } else {
                 echo '<div style="text-align: center; padding: 50px; background: #0a0a0aff;">
-                        <p style="color: #777;">Bạn chưa có đơn hàng nào!</p>
-                        <a href="index.php?act=products" style="color: #d0021b; font-weight: bold;">Mua sắm ngay</a>
+                        <p style="color: #ccc; font-size: 18px;">Bạn chưa có đơn hàng nào!</p>
+                        <a href="index.php?act=products" style="color: #d0021b; font-weight: bold; font-size: 16px; text-decoration: underline;">Mua sắm ngay</a>
                       </div>';
             }
-            // Hàm đếm số lượng sản phẩm trong 1 đơn hàng
-
         ?>
     </div>
 </main>
