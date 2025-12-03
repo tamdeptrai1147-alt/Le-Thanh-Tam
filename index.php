@@ -11,6 +11,7 @@ include "model/category.php";
 include "model/user.php"; 
 include "model/bill.php"; // Bắt buộc có để xử lý đơn hàng
 include "model/tintuc.php"; 
+include "../model/thongke.php";
 
 // 2. Header
 include "view/header.php";
