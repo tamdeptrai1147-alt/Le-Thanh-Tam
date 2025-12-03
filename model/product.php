@@ -6,7 +6,7 @@ function loadall_product_home(){
     return $listproduct;
 }
 
-// 2. Hàm lấy chi tiết 1 sản phẩm (CÁI BẠN ĐANG THIẾU)
+// 2. Hàm lấy chi tiết 1 sản phẩm
 function loadone_product($id){
     $sql = "SELECT * FROM products WHERE id=".$id;
     $sp = pdo_query_one($sql); // Gọi hàm lấy 1 dòng trong pdo.php
@@ -18,11 +18,5 @@ function load_product_cungloai($id, $iddm){
     $sql = "SELECT * FROM products WHERE iddm=".$iddm." AND id <> ".$id;
     $listproduct = pdo_query($sql);
     return $listproduct;
-}
-
-function loadone_product($id){
-    $sql = "SELECT * FROM products WHERE id = ?";
-    $product = pdo_query_one($sql, $id);
-    return $product;
 }
 ?>
