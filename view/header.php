@@ -23,31 +23,15 @@
                         <div class="mega-content">
                             <div class="mega-col">
                                 <h3>VI XỬ LÝ & MAIN</h3>
-                                <ul>
-                                    <li><a href="#">CPU - Bộ vi xử lý</a></li>
-                                    <li><a href="#">MAINBOARD - Bo mạch chủ</a></li>
-                                </ul>
+                                <ul><li><a href="#">CPU - Bộ vi xử lý</a></li><li><a href="#">MAINBOARD - Bo mạch chủ</a></li></ul>
                             </div>
                             <div class="mega-col">
                                 <h3>BỘ NHỚ & LƯU TRỮ</h3>
-                                <ul>
-                                    <li><a href="#">RAM - Bộ nhớ trong</a></li>
-                                    <li><a href="#">SSD - Ổ cứng thể rắn</a></li>
-                                </ul>
+                                <ul><li><a href="#">RAM - Bộ nhớ trong</a></li><li><a href="#">SSD - Ổ cứng thể rắn</a></li></ul>
                             </div>
                             <div class="mega-col">
                                 <h3>ĐỒ HỌA & MÀN HÌNH</h3>
-                                <ul>
-                                    <li><a href="#">VGA - Card Màn Hình</a></li>
-                                    <li><a href="#">LCD - Màn hình</a></li>
-                                </ul>
-                            </div>
-                            <div class="mega-col">
-                                <h3>NGUỒN & CASE</h3>
-                                <ul>
-                                    <li><a href="#">PSU - Nguồn máy tính</a></li>
-                                    <li><a href="#">CASE - Vỏ máy tính</a></li>
-                                </ul>
+                                <ul><li><a href="#">VGA - Card Màn Hình</a></li><li><a href="#">LCD - Màn hình</a></li></ul>
                             </div>
                         </div>
                     </div>
@@ -58,9 +42,11 @@
                 <li><a href="index.php?act=lienhe">Liên hệ</a></li>
             </ul>
         </nav>
-<div class="header-icons">
+
+        <div class="header-icons">
+            
             <form action="index.php?act=products" method="post" class="search-form">
-                <input type="text" name="kyw" placeholder="Tìm kiếm...">
+                <input type="text" name="kyw" placeholder="Tìm sản phẩm...">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
 
@@ -73,19 +59,24 @@
             </a> 
 
             <div class="box-user">
-                <i class="fa-regular fa-user"></i>
-                <?php if(isset($_SESSION['user'])) echo '<span>'.$_SESSION['user']['user'].'</span>'; ?>
+                <i class="fa-regular fa-user" style="font-size: 20px;"></i>
+                <?php if(isset($_SESSION['user'])) echo '<span style="font-size:13px; margin-left:5px; font-weight:bold;">'.$_SESSION['user']['user'].'</span>'; ?>
                 
                 <div class="user-dropdown">
                     <?php if(isset($_SESSION['user'])){ ?>
                         <?php if($_SESSION['user']['role'] == 1){ ?>
-                            <a href="admin/index.php" target="_blank" style="color:red; font-weight:bold;"><i class="fa-solid fa-user-secret"></i> Trang Admin</a>
+                            <a href="admin/index.php" target="_blank" style="color: #ff3333; font-weight: bold; border-bottom: 1px dashed #444;">
+                                <i class="fa-solid fa-user-secret"></i> Trang Quản Trị
+                            </a>
                         <?php } ?>
-                        <a href="index.php?act=mybill">Đơn hàng</a>
-                        <a href="index.php?act=thoat">Đăng xuất</a>
+                        <a href="index.php?act=mybill"><i class="fa-solid fa-receipt"></i> Đơn hàng</a>
+                        <a href="index.php?act=thongtin"><i class="fa-solid fa-user-gear"></i> Tài khoản</a>
+                        <a href="index.php?act=thoat" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
                     <?php } else { ?>
-                        <a href="index.php?act=dangnhap">Đăng nhập</a>
+                        <a href="index.php?act=dangnhap"><i class="fa-solid fa-arrow-right-to-bracket"></i> Đăng nhập</a>
+                        <a href="index.php?act=dangky"><i class="fa-solid fa-user-plus"></i> Đăng ký</a>
                     <?php } ?>
                 </div>
             </div>
         </div>
+    </header>

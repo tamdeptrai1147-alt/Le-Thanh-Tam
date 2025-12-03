@@ -1,9 +1,9 @@
 <main>
     <div class="container" style="width: 95%; margin: 20px auto;">
         
-        <h2 style="text-align: center; font-size: 32px; font-weight: bold; margin-bottom: 30px; text-transform: uppercase; color: #b20000;">
-            KHO PC WORKSTATION & GAMING
-        </h2>
+      <h2 style="text-align: center; font-size: 32px; font-weight: bold; margin-bottom: 30px; text-transform: uppercase; color: #b20000;">
+    <?php echo isset($title_page) ? $title_page : "DANH SÁCH SẢN PHẨM"; ?>
+</h2>
 
         <div class="top-section">
             <h3 class="top-title">🔥 TOP 5 CẤU HÌNH BÁN CHẠY 🔥</h3>

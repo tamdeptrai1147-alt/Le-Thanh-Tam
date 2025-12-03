@@ -44,22 +44,29 @@
                 <i class="fa-regular fa-clock" style="color: #d0021b;"></i> Mới cập nhật
             </h4>
             
-            <ul style="list-style: none;">
-                <li style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #222;">
-                    <span style="display: block; font-weight: bold; color: #fff;">Đơn hàng #13</span>
-                    <span style="font-size: 13px; color: #888;">Khách: Nguyễn Văn A</span>
-                    <span style="float: right; font-size: 12px; color: #4caf50;">+260k</span>
-                </li>
-                <li style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #222;">
-                    <span style="display: block; font-weight: bold; color: #fff;">Đơn hàng #12</span>
-                    <span style="font-size: 13px; color: #888;">Khách: Trần Thị B</span>
-                    <span style="float: right; font-size: 12px; color: #4caf50;">+150k</span>
-                </li>
-                <li>
-                    <span style="display: block; font-weight: bold; color: #fff;">User mới</span>
-                    <span style="font-size: 13px; color: #888;">User: dragon_boy</span>
-                    <span style="float: right; font-size: 12px; color: #2196f3;">New</span>
-                </li>
+          <ul style="list-style: none;">
+                <?php
+                    // Kiểm tra xem hàm có tồn tại không để tránh lỗi
+                    if(function_exists('loadall_bill_home')){
+                        $listbill_new = loadall_bill_home();
+                        
+                        if(count($listbill_new) > 0){
+                            foreach ($listbill_new as $bill) {
+                                extract($bill);
+                                // $id, $bill_name, $total, $ngaydathang...
+                                echo '
+                                <li style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #222;">
+                                    <span style="display: block; font-weight: bold; color: #fff;">Đơn hàng #DC-'.$id.'</span>
+                                    <span style="font-size: 13px; color: #888;">Khách: '.$bill_name.'</span>
+                                    <span style="float: right; font-size: 12px; color: #4caf50;">+'.number_format($total).' đ</span>
+                                    <div style="font-size: 11px; color: #555; margin-top: 3px;">'.$ngaydathang.'</div>
+                                </li>';
+                            }
+                        } else {
+                            echo '<p style="color: #666; font-size: 13px;">Chưa có đơn hàng nào.</p>';
+                        }
+                    }
+                ?>
             </ul>
         </div>
     </div>

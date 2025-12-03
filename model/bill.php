@@ -81,4 +81,5 @@ function loadall_bill_home(){
     $listbill = pdo_query($sql);
     return $listbill;
 }
+
 ?>

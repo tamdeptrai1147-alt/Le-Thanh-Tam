@@ -151,8 +151,36 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
         /* ===============================
            3. SẢN PHẨM (DANH SÁCH - CHI TIẾT)
         ==================================*/
+       /* ===============================
+           3. SẢN PHẨM (TÌM KIẾM & LỌC)
+        ==================================*/
         case 'products':
-            $dssp = loadall_product_home();
+            // 1. Lấy từ khóa tìm kiếm (Nếu có nhập ở Header)
+            if(isset($_POST['kyw']) && $_POST['kyw'] != ""){
+                $kyw = $_POST['kyw'];
+            } else {
+                $kyw = "";
+            }
+
+            // 2. Lấy ID danh mục (Nếu bấm vào danh mục)
+            if(isset($_GET['iddm']) && $_GET['iddm'] > 0){
+                $iddm = $_GET['iddm'];
+            } else {
+                $iddm = 0;
+            }
+
+            // 3. Gọi hàm tìm kiếm (Hàm này đã có trong model/product.php)
+            if(function_exists('loadall_sanpham')){
+                $dssp = loadall_sanpham($kyw, $iddm);
+            } else {
+                $dssp = loadall_product_home(); // Dự phòng nếu chưa có hàm kia
+            }
+            
+            // 4. Cập nhật tên tiêu đề trang cho đẹp
+            if($kyw != "") $title_page = 'Kết quả tìm kiếm: "'.$kyw.'"';
+            else if($iddm > 0) $title_page = "Sản phẩm theo danh mục";
+            else $title_page = "Tất cả sản phẩm";
+
             include "view/products.php";
             break;
 
