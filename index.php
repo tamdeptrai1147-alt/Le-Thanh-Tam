@@ -10,6 +10,7 @@ include "model/product.php";
 include "model/category.php"; 
 include "model/user.php"; 
 include "model/bill.php"; // Bắt buộc có để xử lý đơn hàng
+include "model/tintuc.php"; 
 
 // 2. Header
 include "view/header.php";
@@ -237,11 +238,31 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
         default:
             include "view/home.php";
             break;
+        /* ===============================
+           6. TIN TỨC (MỚI THÊM)
+        ==================================*/
+       case 'tintuc':
+        $dstintuc = loadall_tintuc(); // Lấy dữ liệu từ DB gán vào biến
+        include "view/news.php";
+        break;
+        /* --- THÊM VÀO --- */
+        case 'lienhe':
+            include "view/contact.php";
+            break;
+            
+        case 'gui_lienhe':
+            // Xử lý logic gửi mail ở đây (Tạm thời chỉ thông báo)
+            if(isset($_POST['gui_lh'])){
+                $thongbao = "Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm.";
+            }
+            include "view/contact.php";
+            break;
+        /* ---------------- */
             
     }
 
 } else {
-    include "view/home.php";
+    include "view/home.php";        
 }
 
 // Footer
