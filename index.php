@@ -45,14 +45,25 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             include "view/dangky.php";
             break;
 
-        case 'dangnhap':
+     case 'dangnhap':
             if(isset($_POST['dangnhap']) && ($_POST['dangnhap'])){
                 $user = $_POST['user'];
                 $pass = $_POST['pass'];
                 $checkuser = check_user($user, $pass);
+                
                 if(is_array($checkuser)){
                     $_SESSION['user'] = $checkuser;
-                    header('Location: index.php');
+                    
+                    // --- ĐOẠN CODE MỚI: KIỂM TRA QUYỀN ---
+                    if($checkuser['role'] == 1) {
+                        // Nếu là Admin (role=1) thì vào trang Admin
+                        header('Location: admin/index.php');
+                    } else {
+                        // Nếu là Khách thì về Trang chủ
+                        header('Location: index.php');
+                    }
+                    // -------------------------------------
+                    
                     exit();
                 } else {
                     $thongbao = "Tài khoản hoặc mật khẩu sai!";
@@ -148,6 +159,7 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
         case 'product_detail':
             if(isset($_GET['id']) && ($_GET['id'] > 0)){
                 $id = $_GET['id'];
+                tang_luotxem($id);
                 if(function_exists('loadone_product')){
                     $onesp = loadone_product($id);
                     if(is_array($onesp)){
