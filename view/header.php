@@ -58,26 +58,34 @@
                 <li><a href="index.php?act=lienhe">Liên hệ</a></li>
             </ul>
         </nav>
+<div class="header-icons">
+            <form action="index.php?act=products" method="post" class="search-form">
+                <input type="text" name="kyw" placeholder="Tìm kiếm...">
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
 
-        <div class="header-icons">
-            <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a> 
-            <a href="index.php?act=viewcart"><i class="fa-solid fa-cart-shopping"></i></a> 
+            <a href="index.php?act=viewcart" class="cart-btn">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <?php 
+                    $count_cart = isset($_SESSION['mycart']) ? count($_SESSION['mycart']) : 0;
+                    if($count_cart > 0) echo '<span class="cart-count">'.$count_cart.'</span>';
+                ?>
+            </a> 
 
             <div class="box-user">
-                <i class="fa-regular fa-user" style="font-size: 18px;"></i>
+                <i class="fa-regular fa-user"></i>
+                <?php if(isset($_SESSION['user'])) echo '<span>'.$_SESSION['user']['user'].'</span>'; ?>
                 
-                <?php if(isset($_SESSION['user'])) echo '<span style="font-size:13px; margin-left:5px; font-weight:bold;">'.$_SESSION['user']['user'].'</span>'; ?>
-
                 <div class="user-dropdown">
                     <?php if(isset($_SESSION['user'])){ ?>
-                        <a href="index.php?act=mybill"><i class="fa-solid fa-receipt"></i> Đơn hàng</a>
-                        <a href="index.php?act=thongtin"><i class="fa-solid fa-user-gear"></i> Tài khoản</a>
-                        <a href="index.php?act=thoat" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                        <?php if($_SESSION['user']['role'] == 1){ ?>
+                            <a href="admin/index.php" target="_blank" style="color:red; font-weight:bold;"><i class="fa-solid fa-user-secret"></i> Trang Admin</a>
+                        <?php } ?>
+                        <a href="index.php?act=mybill">Đơn hàng</a>
+                        <a href="index.php?act=thoat">Đăng xuất</a>
                     <?php } else { ?>
-                        <a href="index.php?act=dangnhap"><i class="fa-solid fa-arrow-right-to-bracket"></i> Đăng nhập</a>
-                        <a href="index.php?act=dangky"><i class="fa-solid fa-user-plus"></i> Đăng ký</a>
+                        <a href="index.php?act=dangnhap">Đăng nhập</a>
                     <?php } ?>
                 </div>
             </div>
         </div>
-    </header>
