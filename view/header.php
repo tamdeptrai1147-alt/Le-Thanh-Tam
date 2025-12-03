@@ -71,7 +71,7 @@
                 <div class="user-dropdown">
                     <?php if(isset($_SESSION['user'])){ ?>
                         <a href="index.php?act=mybill"><i class="fa-solid fa-receipt"></i> Đơn hàng</a>
-                        <a href="index.php?act=thongtin"><i class="fa-solid fa-user-gear"></i> Tài khoản</a>
+                        <a href="index.php?act=edit_taikhoan"><i class="fa-solid fa-user-gear"></i> Tài khoản</a>
                         <a href="index.php?act=thoat" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
                     <?php } else { ?>
                         <a href="index.php?act=dangnhap"><i class="fa-solid fa-arrow-right-to-bracket"></i> Đăng nhập</a>

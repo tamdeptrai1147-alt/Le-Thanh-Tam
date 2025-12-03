@@ -930,3 +930,336 @@ h3.checkout-title { font-size: 16px; font-weight: bold; margin-bottom: 15px; tex
     .contact-banner { height: 250px; }
     .contact-banner-text h1 { font-size: 28px; }
 }
+/* ================================================= */
+/* CSS TRANG TÀI KHOẢN (DASHBOARD STYLE - GAMING) */
+/* ================================================= */
+
+/* 1. Khung bao quanh toàn bộ */
+.account-page {
+    width: 1200px;
+    margin: 50px auto;
+    display: flex;
+    gap: 30px; /* Khoảng cách giữa 2 cột */
+    align-items: flex-start;
+    color: #fff;
+}
+
+/* 2. CỘT TRÁI (SIDEBAR MENU) */
+.acc-sidebar {
+    width: 280px;
+    background: #0a0a0a; /* Đen đậm */
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+/* Phần Avatar và Tên */
+.user-profile-mini {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333;
+    margin-bottom: 20px;
+}
+.user-avatar {
+    width: 50px; height: 50px;
+    background: #222;
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 20px; color: #666;
+    border: 2px solid #d0021b; /* Viền đỏ gaming */
+}
+.user-info-text strong { display: block; color: #fff; font-size: 16px; margin-bottom: 3px; }
+.user-info-text span { font-size: 12px; color: #888; }
+.user-info-text i { color: #d0021b; margin-right: 5px; }
+
+/* Menu danh sách */
+.acc-menu ul li { margin-bottom: 8px; }
+.acc-menu ul li a {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 15px;
+    color: #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+.acc-menu ul li a i { width: 20px; text-align: center; }
+
+/* Hiệu ứng Hover & Active (Đỏ rực) */
+.acc-menu ul li a:hover, .acc-menu ul li a.active {
+    background: #d0021b;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(208, 2, 27, 0.4);
+}
+
+/* 3. CỘT PHẢI (MAIN CONTENT) */
+.acc-content {
+    flex: 1; /* Chiếm hết phần còn lại */
+    background: #111; /* Nền xám đen */
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 30px 40px;
+}
+
+.acc-header {
+    border-bottom: 1px solid #333;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+.acc-header h2 {
+    margin: 0; text-align: left;
+    font-size: 22px; color: #fff; text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.acc-header p { color: #888; font-size: 14px; margin-top: 5px; }
+
+/* 4. FORM NHẬP LIỆU (Giống hình mẫu nhưng màu tối) */
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.form-label {
+    width: 180px; /* Độ rộng nhãn bên trái */
+    color: #ccc;
+    font-size: 14px;
+    text-align: right;
+    padding-right: 30px;
+}
+.form-input-box { flex: 1; position: relative; }
+
+/* Ô Input chuẩn Gaming */
+.acc-input {
+    width: 100%;
+    background: #222; 
+    border: 1px solid #444;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 4px;
+    outline: none;
+    transition: 0.3s;
+}
+.acc-input:focus {
+    border-color: #d0021b; /* Focus sáng viền đỏ */
+    background: #000;
+}
+/* Input bị khóa (Tên đăng nhập) */
+.acc-input[readonly] {
+    background: #1a1a1a;
+    color: #666;
+    cursor: not-allowed;
+    border: 1px solid #333;
+}
+
+/* Link "Thay đổi" bên cạnh sđt */
+.link-change {
+    position: absolute; right: 10px; top: 50%;
+    transform: translateY(-50%);
+    color: #007bff; font-size: 13px; text-decoration: underline; cursor: pointer;
+}
+
+/* Nút Lưu */
+.btn-save-acc {
+    background: #d0021b;
+    color: #fff; border: none;
+    padding: 12px 40px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-left: 180px; /* Đẩy thụt vào cho thẳng hàng input */
+    box-shadow: 0 0 15px rgba(208, 2, 27, 0.3);
+    transition: 0.3s;
+}
+.btn-save-acc:hover { background: #ff0000; transform: translateY(-2px); }
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+    .account-page { flex-direction: column; width: 100%; padding: 0 10px; }
+    .acc-sidebar { width: 100%; }
+    .form-row { flex-direction: column; align-items: flex-start; }
+    .form-label { text-align: left; margin-bottom: 8px; width: 100%; }
+    .btn-save-acc { margin-left: 0; width: 100%; }
+}
+/* ================================================= */
+/* CSS TRANG TÀI KHOẢN (GIAO DIỆN GAMING PRO) */
+/* ================================================= */
+
+/* 1. Khung bao quanh toàn bộ */
+.account-page {
+    width: 1200px;
+    margin: 60px auto;
+    display: flex;
+    gap: 40px; 
+    align-items: flex-start;
+    color: #fff;
+}
+
+/* 2. CỘT TRÁI (SIDEBAR MENU) */
+.acc-sidebar {
+    width: 300px;
+    background: #121212; /* Nền tối hơn */
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 30px 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Phần Avatar và Tên */
+.user-profile-mini {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #2a2a2a;
+    margin-bottom: 25px;
+}
+.user-avatar {
+    width: 64px; height: 64px;
+    background: #1e1e1e;
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 24px; color: #d0021b;
+    border: 3px solid #d0021b;
+    box-shadow: 0 0 10px rgba(208, 2, 27, 0.3);
+}
+.user-info-text strong {
+    display: block; color: #fff; font-size: 18px; margin-bottom: 5px; font-weight: 600;
+}
+.user-info-text span {
+    font-size: 13px; color: #888; display: flex; align-items: center; cursor: pointer; transition: 0.3s;
+}
+.user-info-text span:hover { color: #d0021b; }
+.user-info-text i { color: #d0021b; margin-right: 6px; font-size: 12px; }
+
+/* Menu danh sách */
+.acc-menu ul li { margin-bottom: 12px; }
+.acc-menu ul li a {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 20px;
+    color: #aaa;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+.acc-menu ul li a i { width: 20px; text-align: center; font-size: 16px; }
+
+/* Hiệu ứng Hover & Active */
+.acc-menu ul li a:hover {
+    background: rgba(208, 2, 27, 0.1);
+    color: #d0021b;
+}
+.acc-menu ul li a.active {
+    background: #d0021b;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(208, 2, 27, 0.4);
+}
+
+/* 3. CỘT PHẢI (MAIN CONTENT) */
+.acc-content {
+    flex: 1;
+    background: #121212;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.acc-header {
+    border-bottom: 1px solid #2a2a2a;
+    padding-bottom: 20px;
+    margin-bottom: 35px;
+}
+.acc-header h2 {
+    margin: 0; text-align: left;
+    font-size: 26px; color: #fff; text-transform: uppercase;
+    letter-spacing: 1px; font-weight: 700;
+}
+.acc-header p { color: #888; font-size: 14px; margin-top: 8px; }
+
+/* 4. FORM NHẬP LIỆU */
+.form-row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+.form-label {
+    width: 180px;
+    color: #bbb;
+    font-size: 15px;
+    text-align: right;
+    padding-right: 30px;
+    padding-top: 12px;
+    font-weight: 500;
+}
+.form-input-box { flex: 1; position: relative; }
+
+/* Ô Input được trau chuốt */
+.acc-input {
+    width: 100%;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+.acc-input:focus {
+    border-color: #d0021b;
+    background: #222;
+    box-shadow: 0 0 8px rgba(208, 2, 27, 0.2);
+}
+/* Input bị khóa */
+.acc-input[readonly] {
+    background: #161616;
+    color: #777;
+    cursor: not-allowed;
+    border-color: #2a2a2a;
+}
+/* Ghi chú dưới input */
+.form-note {
+    font-size: 13px; color: #666; margin-top: 8px; display: block;
+}
+
+/* Nút Lưu */
+/* Tìm và sửa đoạn này trong css/style.css */
+
+.btn-save-acc {
+    background: #d0021b;
+    color: #fff; 
+    border: none;
+    
+    /* Chỉnh kích thước nút */
+    width: 100%;       /* Kéo dài nút bằng ô input */
+    padding: 14px 0;   /* Độ dày của nút */
+    
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 15px;
+    
+    /* QUAN TRỌNG: 3 dòng này giúp chữ nằm chính giữa tuyệt đối */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Bỏ margin-left cũ đi để nó thẳng hàng với input bên trên */
+    margin-left: 0; 
+    
+    box-shadow: 0 4px 10px rgba(208, 2, 27, 0.3);
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+.btn-save-acc:hover {
+    background: #f00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(208, 2, 27, 0.5);
+}
