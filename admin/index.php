@@ -1,32 +1,33 @@
 <?php
     session_start();
-    // Kết nối các model cần thiết
+    
+    // 1. KẾT NỐI CÁC MODEL (Thêm dòng thongke.php vào đây)
     include "../model/pdo.php";
-    include "../model/category.php";  // Để quản lý danh mục
-    include "../model/product.php";   // Để quản lý sản phẩm
-    include "../model/bill.php";      // Để xem đơn hàng
-    include "../model/thongke.php";   // Để hiện thống kê Dashboard
+    include "../model/category.php";  
+    include "../model/product.php";   
+    include "../model/bill.php";      
+    include "../model/thongke.php";   // <--- DÒNG MỚI THÊM: Để lấy số liệu thống kê
+    
+    // 2. GỌI GIAO DIỆN HEADER (MENU TRÁI)
+    include "header.php"; 
 
-    include "header.php"; // Gọi giao diện Menu bên trái + Header
-
-    // Kiểm tra xem người dùng muốn đi đâu (biến 'act')
+    // 3. ĐIỀU HƯỚNG (CONTROLLER)
     if(isset($_GET['act'])){
         $act = $_GET['act'];
         switch ($act) {
             
             /* --- KHU VỰC QUẢN LÝ DANH MỤC --- */
             case 'adddm':
-                // Kiểm tra xem người dùng có bấm nút "Thêm mới" không
                 if(isset($_POST['themmoi']) && ($_POST['themmoi'])){
                     $tenloai = $_POST['tenloai'];
-                    insert_danhmuc($tenloai); // Gọi hàm thêm trong model
+                    insert_danhmuc($tenloai); 
                     $thongbao = "Thêm thành công";
                 }
                 include "danhmuc/add.php";
                 break;
 
             case 'listdm':
-                $listdanhmuc = loadall_category(); // Lấy danh sách từ DB
+                $listdanhmuc = loadall_category(); 
                 include "danhmuc/list.php";
                 break;
 
@@ -50,40 +51,38 @@
                     $tenloai = $_POST['tenloai'];
                     $id = $_POST['id'];
                     update_danhmuc($id, $tenloai);
-                    $thongbao = "Cập nhật thành công";
                 }
                 $listdanhmuc = loadall_category();
                 include "danhmuc/list.php";
                 break;
             
-            /* --- CÁC CHỨC NĂNG KHÁC (ĐỂ SAU) --- */
-            case 'listsp':
-                // include "sanpham/list.php";
-                break;
-                
+            /* --- CÁC CHỨC NĂNG KHÁC --- */
+            // case 'listsp': ...
+
             case 'thoat':
                 session_unset();
                 header('Location: ../index.php');
                 break;
 
             default:
-                // Mặc định vào trang Dashboard thống kê
-                $count_sp = count_sanpham();
-                $count_bill = count_donhang();
-                $count_kh = count_taikhoan();
-                $sum_total = sum_doanhthu();
+                // --- ĐÂY LÀ CHỖ THÊM CODE THỐNG KÊ (Khi bấm vào mục khác không tồn tại) ---
+                $count_sp = count_sanpham();    // Đếm sản phẩm
+                $count_bill = count_donhang();  // Đếm đơn hàng
+                $count_kh = count_taikhoan();   // Đếm khách hàng
+                $sum_total = sum_doanhthu();    // Tính tổng tiền
+                
                 include "home.php";
                 break;
         }
     } else {
-        // Nếu không chọn gì thì cũng vào Dashboard
+        // --- ĐÂY LÀ CHỖ THÊM CODE THỐNG KÊ (Khi mới vào trang admin) ---
         $count_sp = count_sanpham();
         $count_bill = count_donhang();
         $count_kh = count_taikhoan();
         $sum_total = sum_doanhthu();
+
         include "home.php";
     }
 
-    // Đóng thẻ div mở bên header
     echo '</div></body></html>';
 ?>
