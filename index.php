@@ -10,6 +10,7 @@ include "model/product.php";
 include "model/category.php"; 
 include "model/user.php"; 
 include "model/bill.php"; // Bắt buộc có để xử lý đơn hàng
+include "model/tintuc.php"; 
 
 // 2. Header
 include "view/header.php";
@@ -37,7 +38,6 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
                 $tel = $_POST['tel'];
                 
                 insert_user($user, $pass, $email, $address, $tel); 
-                
                 $thongbao = "Đăng ký thành công! Vui lòng đăng nhập.";
             }
             include "view/dangky.php";
@@ -69,14 +69,12 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
            2. GIỎ HÀNG (THÊM - XÓA - TĂNG GIẢM)
         ==================================*/
         case 'addtocart':
-            // Chỉ cần kiểm tra có ID sản phẩm gửi lên là lụm
             if(isset($_POST['id']) && $_POST['id'] > 0){
                 $id = $_POST['id'];
                 $name = $_POST['name'];
                 $img = $_POST['img'];
                 $price = $_POST['price'];
-                // Nếu có nhập số lượng thì lấy, không thì mặc định là 1
-                $soluong = (isset($_POST['soluong']) && $_POST['soluong'] > 0) ? $_POST['soluong'] : 1;
+                $soluong = 1;
 
                 // Kiểm tra sản phẩm đã tồn tại trong giỏ chưa
                 $fl = 0;
@@ -87,15 +85,12 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
                         break;
                     }
                 }
-
-                // Nếu chưa có thì thêm mới
                 if ($fl == 0) {
                     $spadd = [$id, $name, $img, $price, $soluong];
                     array_push($_SESSION['mycart'], $spadd);
                 }
 
                 $_SESSION['thongbao'] = "Đã thêm sản phẩm vào giỏ hàng!";
-                
                 header("Location: index.php?act=viewcart");
                 exit();
             }
@@ -116,7 +111,7 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
                 $i = $_GET['i'];
                 $_SESSION['mycart'][$i][4]++;
             }
-            header("Location: index.php?act=viewcart");
+            header('Location: index.php?act=viewcart');
             break;
 
         case 'dec_cart':
@@ -128,7 +123,7 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
                     array_splice($_SESSION['mycart'], $i, 1);
                 }
             }
-            header("Location: index.php?act=viewcart");
+            header('Location: index.php?act=viewcart');
             break;
 
         case 'viewcart':
@@ -136,32 +131,10 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             break;
 
         /* ===============================
-           3. SẢN PHẨM (DANH SÁCH - CHI TIẾT)
-        ==================================*/
-        case 'products':
-            $dssp = loadall_product_home();
-            include "view/products.php";
-            break;
-
-        case 'product_detail':
-            if(isset($_GET['id']) && ($_GET['id'] > 0)){
-                $id = $_GET['id'];
-                if(function_exists('loadone_product')){
-                    $onesp = loadone_product($id);
-                    extract($onesp); // Quan trọng để có biến $name, $price...
-                }
-                include "view/product_detail.php"; 
-            } else {
-                include "view/home.php";
-            }
-            break;
-
-        /* ===============================
-           4. THANH TOÁN & LỊCH SỬ ĐƠN HÀNG
+           3. THANH TOÁN & LỊCH SỬ ĐƠN HÀNG
         ==================================*/
         case 'bill':
             if(isset($_POST['dongydathang'])){
-                // 1. Lấy thông tin từ form
                 $name = $_POST['hoten'];
                 $email = $_POST['email'];
                 $address = $_POST['address'];
@@ -170,29 +143,21 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
                 $ngaydathang = date('h:i:s d/m/Y');
                 $total = 0;
                 
-                // Tính tổng tiền
                 foreach ($_SESSION['mycart'] as $cart) {
                     $total += $cart[3] * $cart[4];
                 }
 
-                // 2. Lưu vào Database (Bảng bill)
                 $iduser = isset($_SESSION['user']) ? $_SESSION['user']['id'] : 0;
-                // Cần đảm bảo hàm insert_bill đã được định nghĩa trong model/bill.php
                 $idbill = insert_bill($iduser, $name, $email, $address, $tel, $pttt, $ngaydathang, $total);
 
-                // 3. Lưu chi tiết giỏ hàng (Bảng cart)
                 foreach ($_SESSION['mycart'] as $cart) {
                     insert_cart($iduser, $cart[0], $cart[2], $cart[1], $cart[3], $cart[4], $cart[3]*$cart[4], $idbill);
                 }
 
-                // 4. Xóa giỏ hàng và Thông báo
                 $_SESSION['mycart'] = [];
-                
-                // Biến để hiển thị thông báo (nếu dùng trang confirm riêng)
                 $bill_name = $name;
                 $bill_tel = $tel;
                 
-                // Hiển thị trang xác nhận
                 include "view/bill_confirm.php"; 
             } else {
                 include "view/viewcart.php";
@@ -202,22 +167,17 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
         case 'mybill':
             if(isset($_SESSION['user'])){
                 $iduser = $_SESSION['user']['id'];
-                if(function_exists('loadall_bill')){
-                    $listbill = loadall_bill($iduser); 
-                }
+                $listbill = loadall_bill($iduser); // Lấy danh sách đơn hàng
                 include "view/mybill.php";
             } else {
                 header('Location: index.php?act=dangnhap');
             }
             break;
-            // --- XEM CHI TIẾT ĐƠN HÀNG ---
+
         case 'mybill_detail':
             if(isset($_GET['idbill']) && ($_GET['idbill'] > 0)){
                 $idbill = $_GET['idbill'];
-                // Gọi hàm lấy chi tiết đơn hàng (đã có trong model/bill.php)
-                if(function_exists('loadall_cart')){
-                    $bill_detail = loadall_cart($idbill); 
-                }
+                $bill_detail = loadall_cart($idbill); 
                 include "view/mybill_detail.php";
             } else {
                 include "view/mybill.php";
@@ -225,16 +185,54 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             break;
 
         /* ===============================
-           5. MẶC ĐỊNH
+           4. SẢN PHẨM & MẶC ĐỊNH
         ==================================*/
+        case 'products':
+            $dssp = loadall_product_home();
+            include "view/products.php";
+            break;
+            
+        case 'product_detail':
+            if(isset($_GET['id']) && ($_GET['id'] > 0)){
+                $id = $_GET['id'];
+                if(function_exists('loadone_product')){
+                    $onesp = loadone_product($id);
+                    extract($onesp);
+                }
+                include "view/product_detail.php"; 
+            } else {
+                include "view/home.php";
+            }
+            break;
+            
         default:
             include "view/home.php";
             break;
+        /* ===============================
+           6. TIN TỨC (MỚI THÊM)
+        ==================================*/
+       case 'tintuc':
+        $dstintuc = loadall_tintuc(); // Lấy dữ liệu từ DB gán vào biến
+        include "view/news.php";
+        break;
+        /* --- THÊM VÀO --- */
+        case 'lienhe':
+            include "view/contact.php";
+            break;
+            
+        case 'gui_lienhe':
+            // Xử lý logic gửi mail ở đây (Tạm thời chỉ thông báo)
+            if(isset($_POST['gui_lh'])){
+                $thongbao = "Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm.";
+            }
+            include "view/contact.php";
+            break;
+        /* ---------------- */
             
     }
 
 } else {
-    include "view/home.php";
+    include "view/home.php";        
 }
 
 // Footer
