@@ -5,4 +5,10 @@ function loadall_product_home(){
     $listproduct = pdo_query($sql);
     return $listproduct;
 }
+
+function loadone_product($id){
+    $sql = "SELECT * FROM products WHERE id = ?";
+    $product = pdo_query_one($sql, $id);
+    return $product;
+}
 ?>

@@ -148,9 +148,16 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
                 $id = $_GET['id'];
                 if(function_exists('loadone_product')){
                     $onesp = loadone_product($id);
-                    extract($onesp); // Quan trọng để có biến $name, $price...
+                    if(is_array($onesp)){
+                        extract($onesp); // Quan trọng để có biến $name, $price...
+                        include "view/product_detail.php"; 
+                    } else {
+                        // Nếu không tìm thấy sản phẩm thì về trang chủ
+                        include "view/home.php";
+                    }
+                } else {
+                    include "view/home.php";
                 }
-                include "view/product_detail.php"; 
             } else {
                 include "view/home.php";
             }
