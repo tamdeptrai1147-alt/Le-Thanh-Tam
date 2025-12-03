@@ -734,3 +734,199 @@ h3.checkout-title { font-size: 16px; font-weight: bold; margin-bottom: 15px; tex
     text-shadow: 2px 2px 4px #000; /* Đổ bóng đen cho dễ đọc */
     margin-bottom: 10px;
 }
+/* ================================================= */
+/* CSS TRANG LIÊN HỆ (CONTACT PAGE)         */
+/* ================================================= */
+
+.contact-page {
+    background-color: #050505; /* Nền đen toàn trang */
+    padding: 50px 0;
+    color: #fff;
+}
+
+.contact-container {
+    display: flex;
+    gap: 50px; /* Khoảng cách giữa 2 cột */
+    justify-content: space-between;
+}
+
+/* 1. CỘT TRÁI (INFO) */
+.contact-info {
+    flex: 1; /* Chiếm 1 phần */
+}
+
+.info-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.info-box {
+    flex: 1;
+}
+
+/* Thẻ đỏ tiêu đề (Giống hình mẫu) */
+.badge-red {
+    background-color: #d0021b; /* Đỏ Dragon Core */
+    color: #fff;
+    padding: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 14px;
+    box-shadow: 0 0 10px rgba(208, 2, 27, 0.4); /* Phát sáng nhẹ */
+}
+
+.staff-name, .staff-phone {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #ccc;
+    padding-left: 5px;
+}
+
+.staff-name i, .staff-phone i {
+    width: 20px;
+    color: #d0021b; /* Icon màu đỏ */
+}
+
+.staff-phone {
+    font-weight: bold;
+    font-size: 16px;
+    color: #fff;
+}
+
+/* 2. CỘT PHẢI (FORM) */
+.contact-form-wrapper {
+    flex: 1; /* Chiếm 1 phần */
+    background: #000; /* Nền đen đậm cho khung form */
+    padding: 30px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.contact-title {
+    text-align: center;
+    font-size: 24px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    margin-top: 0;
+    color: #fff;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Ô nhập liệu (Màu trắng xám giống hình mẫu để dễ nhìn) */
+.contact-form-wrapper .form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f2f2f2; /* Màu xám sáng */
+    color: #333;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.contact-form-wrapper .form-control:focus {
+    background-color: #fff;
+    box-shadow: 0 0 5px #d0021b; /* Focus hiện viền đỏ */
+}
+
+.contact-form-wrapper textarea {
+    resize: none; /* Không cho kéo giãn lung tung */
+}
+
+/* Nút Gửi */
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #d0021b;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #ff0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+
+/* Responsive: Trên điện thoại thì xếp dọc */
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column; /* Xếp chồng lên nhau */
+    }
+    .info-row {
+        flex-direction: column; /* Các ô thông tin cũng xếp chồng */
+    }
+}
+/* ================================================= */
+/* BANNER TRANG LIÊN HỆ (CONTACT BANNER)    */
+/* ================================================= */
+
+.contact-banner {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Chiều cao banner (bạn có thể chỉnh 300px hoặc 500px tùy ý) */
+    overflow: hidden;
+    margin-bottom: 50px; /* Khoảng cách với phần Form bên dưới */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+}
+
+.contact-banner-img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; /* Ảnh tự cắt cho vừa khung */
+    z-index: 1;
+    opacity: 0.6; /* Làm mờ ảnh gốc đi một chút */
+}
+
+.contact-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), #050505); /* Hiệu ứng chuyển dần sang đen ở đáy */
+    z-index: 2;
+}
+
+.contact-banner-text {
+    position: relative;
+    z-index: 3; /* Nổi lên trên cùng */
+    text-align: center;
+    color: #fff;
+}
+
+.contact-banner-text h1 {
+    font-size: 42px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(208, 2, 27, 0.5); /* Phát sáng nhẹ màu đỏ */
+}
+
+.contact-banner-text p {
+    font-size: 18px;
+    color: #ccc;
+    font-weight: 300;
+}
+
+/* Responsive trên điện thoại */
+@media (max-width: 768px) {
+    .contact-banner { height: 250px; }
+    .contact-banner-text h1 { font-size: 28px; }
+}
