@@ -4,7 +4,7 @@
 
         <?php
         if(isset($_SESSION['mycart']) && (count($_SESSION['mycart']) > 0)){
-            // --- DANH SÁCH SẢN PHẨM ---
+            // --- 1. HIỂN THỊ DANH SÁCH SẢN PHẨM ---
             $tong = 0;
             $i = 0;
             foreach ($_SESSION['mycart'] as $cart) {
@@ -40,7 +40,7 @@
                 $i++;
             }
 
-            // --- PHẦN FORM THANH TOÁN & TỔNG KẾT (Giữ nguyên) ---
+            // --- 2. PHẦN THANH TOÁN & NÚT BẤM (Đã sửa lỗi) ---
             echo '
             <div class="checkout-row">
                 <div class="col-info">
@@ -75,7 +75,7 @@
                     <h3 class="checkout-title">Mã giảm giá / Quà tặng</h3>
                     <div style="display:flex; gap:5px; margin-bottom:15px;">
                         <input type="text" class="form-control" placeholder="Nhập mã giảm giá">
-                        <button style="background: #d0021b; color: #fff; border: none; border-radius: 4px; padding: 0 15px; font-weight: bold; cursor: pointer;">Áp dụng</button>
+                        <button type="button" style="background: #d0021b; color: #fff; border: none; border-radius: 4px; padding: 0 15px; font-weight: bold; cursor: pointer;">Áp dụng</button>
                     </div>
 
                     <div class="summary-box">
@@ -89,16 +89,21 @@
                     </div>
 
                     <div style="margin-top: 20px;">
-                        <button type="submit" name="dongydathang" class="btn-order">ĐẶT HÀNG</button>
-                        <button type="submit" name="dongydathang" value="1" class="btn-order">ĐẶT HÀNG</button>
-                        <button type="button" class="btn-installment">MUA TRẢ GÓP</button>
-                        <a href="index.php?act=products"><button type="button" class="btn-continue">CHỌN THÊM SẢN PHẨM</button></a>
+                        <button type="submit" name="dongydathang" class="btn-order">ĐẶT HÀNG NGAY</button>
+                        
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <button type="button" class="btn-installment" style="flex: 1;">MUA TRẢ GÓP</button>
+                            <a href="index.php?act=products" style="flex: 1; text-decoration: none;">
+                                <button type="button" class="btn-continue" style="width: 100%;">CHỌN THÊM SẢN PHẨM</button>
+                            </a>
+                        </div>
                     </div>
                     </form> 
                 </div>
             </div>';
 
         } else {
+            // Nếu giỏ hàng trống
             echo '<div style="text-align: center; padding: 50px;">
                     <p>Giỏ hàng trống trơn!</p>
                     <a href="index.php?act=products" style="color: red; font-weight: bold;">Quay lại mua hàng</a>

@@ -406,39 +406,320 @@ del { color: #666; font-size: 12px; }
 /* ================================================= */
 /* 11. FOOTER (3 CỘT) */
 /* ================================================= */
+/* ================================================= */
+/* 11. FOOTER (3 CỘT - GIỐNG ẢNH MẪU) */
+/* ================================================= */
 footer {
-    background-color: #000 !important; color: #fff;
-    padding-top: 50px; border-top: 3px solid #d0021b;
+    background-color: #000 !important; /* Nền đen tuyền */
+    color: #fff;
+    padding-top: 60px;
+    padding-bottom: 40px;
+    border-top: 3px solid #d0021b; /* Viền đỏ trên cùng */
 }
-.footer-container { display: flex; justify-content: space-between; gap: 30px; padding-bottom: 30px; }
-.footer-col { width: 30%; }
-.footer-info { width: 40%; }
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px; /* Padding 2 bên */
+}
+
+/* --- CẤU TRÚC CỘT --- */
+.footer-col {
+    padding: 0 20px;
+}
+.footer-info {
+    width: 45%; /* Cột thông tin rộng nhất */
+    text-align: center; /* Quan trọng: Canh giữa giống ảnh */
+}
+.footer-policy, .footer-guide {
+    width: 27%; /* 2 cột còn lại nhỏ hơn */
+}
+
+/* --- CỘT 1: THÔNG TIN LIÊN HỆ --- */
+.support-text {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #222; /* Đường gạch mờ dưới dòng chữ hỗ trợ */
+}
+
+/* Logo trong khung đỏ */
+.logo-footer-box {
+    margin-bottom: 25px;
+}
+.logo-footer {
+    display: inline-block;
+    color: #d0021b;
+    font-size: 24px;
+    font-weight: bold;
+    border: 2px solid #d0021b; /* Viền đỏ */
+    padding: 10px 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: #000;
+}
+
+/* Thông tin địa chỉ/sđt */
+.contact-details p {
+    font-size: 13px;
+    color: #ccc;
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+.contact-details i {
+    color: #d0021b; /* Icon màu đỏ */
+    margin-right: 8px;
+    width: 15px;
+}
+
+/* Icon Mạng xã hội */
+.social-icons {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center; /* Canh giữa icon */
+    gap: 20px;
+}
+.social-icons a {
+    color: #fff;
+    font-size: 18px;
+    width: 35px; height: 35px;
+    line-height: 35px;
+    text-align: center;
+    background: #1a1a1a; /* Nền icon xám đen */
+    border-radius: 4px;
+    transition: 0.3s;
+}
+.social-icons a:hover {
+    background: #d0021b; /* Hover nền đỏ */
+    color: #fff;
+}
+
+/* --- CỘT 2 & 3: DANH SÁCH --- */
 .footer-title {
-    font-weight: bold; font-size: 16px; text-transform: uppercase;
-    margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px;
-}
-.footer-info p { font-size: 14px; margin-bottom: 10px; color: #ccc; }
-.footer-policy a, .footer-guide a { color: #ccc; font-size: 14px; display: block; margin-bottom: 8px; }
-.footer-policy a:hover, .footer-guide a:hover { color: #d0021b; padding-left: 5px; }
-.footer-bottom {
-    border-top: 1px solid #333; padding: 20px 0;
-    text-align: center; font-size: 12px; color: #666; background-color: #0a0a0a;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333; /* Đường gạch dưới tiêu đề */
+    display: inline-block; /* Để đường gạch chỉ dài bằng chữ hoặc full tùy ý */
+    width: 100%;
 }
 
-/* ================================================= */
-/* 12. RESPONSIVE */
-/* ================================================= */
+.footer-policy ul, .footer-guide ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-policy li, .footer-guide li {
+    margin-bottom: 15px;
+}
+
+.footer-policy a, .footer-guide a {
+    color: #ccc;
+    font-size: 14px;
+    display: flex; /* Để icon và chữ thẳng hàng */
+    align-items: center;
+    transition: 0.3s;
+}
+
+.footer-policy a i, .footer-guide a i {
+    color: #d0021b; /* Mũi tên màu đỏ */
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.footer-policy a:hover, .footer-guide a:hover {
+    color: #fff;
+    transform: translateX(5px); /* Hiệu ứng trượt sang phải */
+}
+
+/* --- RESPONSIVE MOBILE --- */
 @media (max-width: 992px) {
-    .news-grid { grid-template-columns: repeat(2, 1fr); }
-    .footer-container { flex-direction: column; gap: 40px; }
-    .footer-col { width: 100% !important; text-align: center; }
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-col {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+    /* Trên mobile thì danh sách căn giữa */
+    .footer-policy ul, .footer-guide ul {
+        display: inline-block;
+        text-align: left; /* Chữ vẫn căn trái cho đẹp */
+    }
+}
+/* CSS FIX RIÊNG CHO TRANG TIN TỨC */
+.news-category-bar {
+    background-color: #000; /* Nền đen tách biệt */
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    border-bottom: 1px solid #222;
 }
 
-@media (max-width: 768px) {
-    .contact-container { flex-direction: column; }
-    .account-page { flex-direction: column; width: 100%; padding: 0 10px; }
-    .acc-sidebar { width: 100%; }
-    .form-row { flex-direction: column; align-items: flex-start; }
-    .form-label { width: 100%; text-align: left; margin-bottom: 10px; }
-    .sol-grid { grid-template-columns: 1fr; }
+.news-cate-item {
+    text-align: center;
+    color: #ccc;
+    cursor: pointer;
+    transition: 0.3s;
 }
+
+.news-cate-item i {
+    display: block;
+    font-size: 24px;
+    width: 60px; height: 60px; line-height: 60px; /* Căn giữa icon trong ô vuông */
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    margin: 0 auto 10px auto;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.news-cate-item:hover i {
+    background: #d0021b;
+    border-color: #d0021b;
+    box-shadow: 0 0 15px rgba(208, 2, 27, 0.5);
+}
+/* --- CSS CHO TRANG LIÊN HỆ (STAFF CARDS) --- */
+.staff-list-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Chia 2 cột đều nhau */
+    gap: 15px;
+}
+
+.staff-card {
+    background: #111; /* Nền đen nhám */
+    border: 1px solid #333;
+    padding: 15px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.staff-card:hover {
+    border-color: #d0021b; /* Viền đỏ khi hover */
+    background: #000;
+    transform: translateY(-3px); /* Hiệu ứng nổi lên */
+}
+
+.staff-role {
+    font-size: 11px;
+    color: #d0021b; /* Chữ chức vụ màu đỏ */
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.staff-name {
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.staff-phone {
+    display: block;
+    color: #ccc;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.staff-phone:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.staff-card i {
+    width: 20px;
+    text-align: center;
+    color: #666;
+    margin-right: 5px;
+}
+
+/* --- RESPONSIVE LIÊN HỆ --- */
+@media (max-width: 768px) {
+    .staff-list-grid {
+        grid-template-columns: 1fr; /* Trên điện thoại về 1 cột */
+    }
+}
+/* --- CSS CHO TRANG GIỎ HÀNG (BUTTONS) --- */
+
+/* 1. Nút Đặt hàng (Đỏ to) */
+.btn-order {
+    width: 100%;
+    padding: 15px;
+    background: #d0021b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-order:hover {
+    background: #b00000;
+    box-shadow: 0 5px 15px rgba(208, 2, 27, 0.4);
+}
+
+/* 2. Nút Trả góp (Xanh dương) */
+.btn-installment {
+    padding: 12px;
+    background: #1a3c75;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-installment:hover {
+    background: #102a55;
+}
+
+/* 3. Nút Chọn thêm (Cam) */
+.btn-continue {
+    padding: 12px;
+    background: #ff8c00;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-continue:hover {
+    background: #e67e00;
+}
+/* --- CSS CHO TRANG GIỎ HÀNG (BUTTONS) --- */
+.btn-order {
+    width: 100%; padding: 15px; background: #d0021b; color: #fff;
+    border: none; border-radius: 5px; font-weight: bold; font-size: 16px;
+    text-transform: uppercase; cursor: pointer; transition: 0.3s;
+}
+.btn-order:hover { background: #b00000; box-shadow: 0 5px 15px rgba(208, 2, 27, 0.4); }
+
+.btn-installment {
+    padding: 12px; background: #1a3c75; color: #fff; border: none;
+    border-radius: 5px; font-weight: bold; text-transform: uppercase;
+    cursor: pointer; transition: 0.3s;
+}
+.btn-installment:hover { background: #102a55; }
+
+.btn-continue {
+    padding: 12px; background: #ff8c00; color: #fff; border: none;
+    border-radius: 5px; font-weight: bold; text-transform: uppercase;
+    cursor: pointer; transition: 0.3s;
+}
+.btn-continue:hover { background: #e67e00; }
