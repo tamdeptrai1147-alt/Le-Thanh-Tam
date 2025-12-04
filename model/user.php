@@ -19,8 +19,8 @@ function check_user($user, $pass){
 
 // Cập nhật thông tin cá nhân
 function update_user($id, $user, $pass, $email, $address, $tel){
-    $sql = "UPDATE users SET user='".$user."', pass='".$pass."', email='".$email."', address='".$address."', tel='".$tel."' WHERE id=".$id;
-    pdo_execute($sql);
+    $sql = "UPDATE users SET user=?, pass=?, email=?, address=?, tel=? WHERE id=?";
+    pdo_execute($sql, $user, $pass, $email, $address, $tel, $id);
 }
 
 // ===================================================
