@@ -216,27 +216,47 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
         /* ===============================
            4. THANH TOÁN & LỊCH SỬ ĐƠN HÀNG
         ==================================*/
-        case 'bill':
+       case 'bill':
             if(isset($_POST['dongydathang'])){
+                // 1. LẤY DỮ LIỆU TỪ FORM
                 $name = $_POST['hoten'];
                 $email = $_POST['email'];
                 $address = $_POST['address'];
                 $tel = $_POST['tel'];
                 $pttt = isset($_POST['pttt']) ? $_POST['pttt'] : 1;
                 $ngaydathang = date('h:i:s d/m/Y');
-                $total = 0;
                 
+                // 2. TÍNH TỔNG TIỀN
+                $total = 0;
                 foreach ($_SESSION['mycart'] as $cart) {
                     $total += $cart[3] * $cart[4];
                 }
 
+                // 3. LƯU VÀO DATABASE (BILL)
                 $iduser = isset($_SESSION['user']) ? $_SESSION['user']['id'] : 0;
                 $idbill = insert_bill($iduser, $name, $email, $address, $tel, $pttt, $ngaydathang, $total);
 
+                // 4. LƯU CHI TIẾT GIỎ HÀNG (CART) VÀ TẠO HTML GỬI MAIL
+                $mail_content_cart = ""; 
                 foreach ($_SESSION['mycart'] as $cart) {
                     insert_cart($iduser, $cart[0], $cart[2], $cart[1], $cart[3], $cart[4], $cart[3]*$cart[4], $idbill);
+                    
+                    // Tạo dòng HTML cho bảng trong email
+                    $mail_content_cart .= "
+                        <tr>
+                            <td>{$cart[1]}</td>
+                            <td style='text-align: center;'>{$cart[4]}</td>
+                            <td>".number_format($cart[3] * $cart[4])." đ</td>
+                        </tr>";
                 }
 
+                // 5. GỬI EMAIL (NEW)
+                include_once "model/guimail.php"; 
+                if(!empty($email)){
+                    gui_hoa_don_email($email, $name, $idbill, $total, $mail_content_cart);
+                }
+
+                // 6. XÓA SESSION VÀ HIỂN THỊ THÔNG BÁO
                 $_SESSION['mycart'] = [];
                 $bill_name = $name;
                 $bill_tel = $tel;
@@ -244,26 +264,6 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
                 include "view/bill_confirm.php"; 
             } else {
                 include "view/viewcart.php";
-            }
-            break;
-
-        case 'mybill':
-            if(isset($_SESSION['user'])){
-                $iduser = $_SESSION['user']['id'];
-                $listbill = loadall_bill($iduser);
-                include "view/mybill.php";
-            } else {
-                header('Location: index.php?act=dangnhap');
-            }
-            break;
-
-        case 'mybill_detail':
-            if(isset($_GET['idbill']) && ($_GET['idbill'] > 0)){
-                $idbill = $_GET['idbill'];
-                $bill_detail = loadall_cart($idbill); 
-                include "view/mybill_detail.php";
-            } else {
-                include "view/mybill.php";
             }
             break;
 
@@ -301,6 +301,26 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
         case 'giai_phap':
         include "view/solutionsp.php";
         break;
+        case 'lienhe':
+            include "view/contact.php";
+            break;
+            
+        case 'gui_lienhe':
+            if(isset($_POST['gui_lh'])){
+                $ten = $_POST['hoten'];
+                $email = $_POST['email'];
+                $sdt = $_POST['sdt'];
+                $tieude = $_POST['tieude'];
+                $noidung = $_POST['noidung'];
+
+                // Gọi hàm gửi mail
+                include_once "model/guimail.php";
+                gui_email_lien_he($ten, $email, $sdt, $tieude, $noidung);
+                
+                $thongbao = "Gửi liên hệ thành công! Chúng tôi sẽ phản hồi sớm.";
+            }
+            include "view/contact.php";
+            break;
     }
       
 
