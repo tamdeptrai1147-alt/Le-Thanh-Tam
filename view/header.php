@@ -37,7 +37,7 @@
                     </div>
                 </li>
 
-                <li><a href="#">Giải pháp</a></li>
+                <li><a href="index.php?act=giai_phap">Giải pháp</a></li>
                 <li><a href="index.php?act=tintuc">Tin Tức</a></li>
                 <li><a href="index.php?act=lienhe">Liên hệ</a></li>
             </ul>

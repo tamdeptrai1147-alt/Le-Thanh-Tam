@@ -10,7 +10,8 @@ include "model/product.php";
 include "model/category.php"; 
 include "model/user.php"; 
 include "model/bill.php"; 
-include "model/tintuc.php"; 
+include "model/tintuc.php";
+
 
 
 // 2. Header
@@ -297,7 +298,11 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
         default:
             include "view/home.php";
             break;
+        case 'giai_phap':
+        include "view/solutionsp.php";
+        break;
     }
+      
 
 } else {
     include "view/home.php";        

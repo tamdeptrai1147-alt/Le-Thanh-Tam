@@ -723,3 +723,243 @@ footer {
     cursor: pointer; transition: 0.3s;
 }
 .btn-continue:hover { background: #e67e00; }
+/* ========================================= */
+/* CSS TRANG GIẢI PHÁP (SOLUTIONS PAGE)     */
+/* ========================================= */
+
+.solutions-page {
+    background-color: #050505;
+    color: #fff;
+}
+
+/* 1. Banner Giải pháp */
+.sol-banner {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    border-bottom: 2px solid #d0021b;
+}
+
+.sol-bg-img {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: 1; opacity: 0.5;
+}
+
+.sol-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.9) 100%);
+    z-index: 2;
+}
+
+.sol-content {
+    position: relative; z-index: 3;
+}
+
+.sol-subtitle {
+    color: #d0021b; font-weight: bold; letter-spacing: 3px; font-size: 14px;
+    text-transform: uppercase; display: block; margin-bottom: 10px;
+}
+
+.sol-content h1 {
+    font-size: 42px; text-transform: uppercase; margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(208, 2, 27, 0.6);
+}
+
+.sol-content p {
+    font-size: 16px; color: #ccc; margin-bottom: 30px; line-height: 1.6;
+}
+
+.btn-scroll-down {
+    padding: 12px 30px; background: transparent; border: 2px solid #d0021b;
+    color: #d0021b; font-weight: bold; text-transform: uppercase;
+    border-radius: 50px; transition: 0.3s;
+}
+
+.btn-scroll-down:hover {
+    background: #d0021b; color: #fff; box-shadow: 0 0 15px #d0021b;
+}
+
+/* 2. Grid Giải pháp */
+.section-title-center {
+    text-align: center; font-size: 28px; text-transform: uppercase;
+    margin-bottom: 50px; color: #fff; border-bottom: 1px solid #333;
+    padding-bottom: 15px; display: inline-block; 
+    left: 50%; position: relative; transform: translateX(-50%);
+}
+
+.sol-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 cột */
+    gap: 30px;
+}
+
+.sol-card {
+    background: #111; border: 1px solid #333; padding: 40px;
+    border-radius: 10px; transition: 0.3s; position: relative;
+    overflow: hidden;
+}
+
+.sol-card:hover {
+    border-color: #d0021b; transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Icon tròn */
+.sol-icon {
+    width: 60px; height: 60px; line-height: 60px; text-align: center;
+    background: #222; border-radius: 50%; color: #d0021b;
+    font-size: 24px; margin-bottom: 20px; transition: 0.3s;
+}
+
+.sol-card:hover .sol-icon {
+    background: #d0021b; color: #fff;
+}
+
+.sol-card h3 {
+    font-size: 20px; text-transform: uppercase; margin-bottom: 15px;
+}
+
+.sol-desc {
+    color: #999; font-size: 14px; line-height: 1.6; margin-bottom: 20px;
+    height: 45px; overflow: hidden; /* Giới hạn chiều cao mô tả */
+}
+
+/* Danh sách cấu hình gợi ý */
+.sol-specs {
+    list-style: none; padding: 0; margin-bottom: 25px;
+    border-top: 1px solid #222; padding-top: 15px;
+}
+
+.sol-specs li {
+font-size: 13px; color: #ccc; margin-bottom: 8px;
+}
+
+.sol-specs i { color: #d0021b; margin-right: 10px; }
+
+/* Nút xem chi tiết */
+.btn-sol-detail {
+    display: inline-block; font-size: 13px; font-weight: bold;
+    color: #fff; text-transform: uppercase; transition: 0.3s;
+}
+
+.btn-sol-detail:hover {
+    color: #d0021b; letter-spacing: 1px;
+}
+
+/* Highlight Card (Card AI) */
+.highlight-card {
+    background: linear-gradient(145deg, #1a0505 0%, #000 100%);
+    border: 1px solid #500;
+}
+
+/* 3. Cam kết dịch vụ dưới cùng */
+.service-commit {
+    background: #111; padding: 40px 0; border-top: 1px solid #333;
+}
+
+.commit-row {
+    display: flex; justify-content: space-between; text-align: center;
+}
+
+.commit-item { flex: 1; padding: 0 20px; border-right: 1px solid #333; }
+.commit-item:last-child { border-right: none; }
+
+.commit-item i {
+    font-size: 30px; color: #d0021b; margin-bottom: 15px;
+}
+
+.commit-item h4 {
+    font-size: 16px; margin-bottom: 5px; text-transform: uppercase;
+}
+
+.commit-item p { font-size: 13px; color: #777; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sol-grid { grid-template-columns: 1fr; } /* Về 1 cột trên mobile */
+    .commit-row { flex-direction: column; gap: 30px; }
+    .commit-item { border-right: none; }
+    .sol-content h1 { font-size: 28px; }
+}
+/* Container của bảng */
+.cart-history-container {
+    width: 80%;
+    margin: 30px auto;
+    color: #fff; /* Chữ màu trắng */
+    font-family: sans-serif;
+}
+
+.cart-history-title {
+    margin-bottom: 20px;
+    border-bottom: 2px solid #d32f2f; /* Gạch chân đỏ */
+    padding-bottom: 10px;
+    display: inline-block;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Style cho bảng */
+.table-cart {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1a1a1a; /* Nền bảng màu đen xám nhẹ */
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.table-cart th {
+    background-color: #333; /* Nền tiêu đề cột */
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #d32f2f; /* Viền đỏ dưới header */
+}
+
+.table-cart td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+    color: #ccc;
+    font-size: 15px;
+}
+
+/* Sửa lỗi link bị nền xanh */
+.table-cart td a {
+    text-decoration: none;
+    color: #d32f2f; /* Mã đơn hàng màu đỏ */
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.table-cart td a:hover {
+    color: #ff5252;
+    text-decoration: underline;
+}
+
+/* Các badge trạng thái (Tình trạng đơn hàng) */
+.status-btn {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #fff;
+    font-weight: bold;
+    display: inline-block;
+}
+
+/* Màu sắc cho từng trạng thái */
+.status-new { background-color: #007bff; } /* Đơn hàng mới - Xanh dương */
+.status-shipping { background-color: #ff9800; } /* Đang giao - Cam */
+.status-done { background-color: #28a745; } /* Hoàn thành - Xanh lá */
+.status-cancel { background-color: #dc3545; } /* Đã hủy - Đỏ */
+
+/* Hiệu ứng hover dòng */
+.table-cart tbody tr:hover {
+    background-color: #252525;
+}
