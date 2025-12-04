@@ -84,7 +84,8 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             if(isset($_POST['capnhat']) && ($_POST['capnhat'])){
                 $user = $_POST['user']; 
                 $pass = $_POST['pass']; 
-                $email = $_POST['email']; 
+                // Kiểm tra: Nếu bên View có gửi email thì lấy, nếu không có thì lấy lại email cũ trong Session
+            $email = isset($_POST['email']) ? $_POST['email'] : $_SESSION['user']['email'];
                 $address = $_POST['address']; 
                 $tel = $_POST['tel']; 
                 $id = $_POST['id'];

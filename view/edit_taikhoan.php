@@ -49,12 +49,7 @@
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-label">Email</div>
-                <div class="form-input-box">
-                    <input type="email" name="email" class="acc-input" value="<?=$email?>">
-                </div>
-            </div>
+            
 
             <div class="form-row">
                 <div class="form-label">Số điện thoại</div>
@@ -71,6 +66,8 @@
             </div>
 
             <input type="hidden" name="id" value="<?=$id?>">
+
+            <input type="hidden" name="email" value="<?=$email?>">
 
             <div class="form-row">
                 <div class="form-label"></div>
