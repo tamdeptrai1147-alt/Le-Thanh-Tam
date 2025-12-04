@@ -15,29 +15,22 @@ function count_donhang(){
 
 // 3. Thống kê số lượng khách hàng
 function count_taikhoan(){
-    $sql = "SELECT count(*) FROM users WHERE role = 0"; // Chỉ đếm khách hàng, không đếm admin
+    $sql = "SELECT count(*) FROM users WHERE role = 0"; // Chỉ đếm khách hàng
     $row = pdo_query_one($sql);
     return $row['count(*)'];
 }
 
-// 4. TÍNH TỔNG DOANH THU (Quan trọng)
+// 4. TÍNH TỔNG DOANH THU
 function sum_doanhthu(){
-    /* Lưu ý: Thường chỉ tính doanh thu các đơn ĐÃ GIAO THÀNH CÔNG.
-       Trong Database của bạn chưa quy định rõ số nào là thành công.
-       Giả sử: 
-       0: Đơn mới
-       1: Đang giao
-       3: Giao thành công (Đã thu tiền)
-    */
+    // Tính tổng tất cả các đơn hàng (Bỏ điều kiện WHERE để test hiển thị số tiền trước)
+    // Sau này muốn chính xác chỉ đơn thành công thì sửa lại: WHERE bill_status = 3
+    $sql = "SELECT SUM(total) FROM bill";
     
-    // Câu lệnh này sẽ tính tổng cột 'total' của những đơn có trạng thái = 3
-    $sql = "SELECT SUM(total) FROM bill WHERE bill_status = 3";
-    
-    // Nếu bạn muốn test hiển thị số tiền ngay bây giờ (dù đơn chưa giao), 
-    // hãy dùng dòng dưới này (bỏ comment):
-    // $sql = "SELECT SUM(total) FROM bill"; 
-
     $row = pdo_query_one($sql);
+    
+    // Nếu chưa có đơn nào thì trả về 0 để tránh lỗi
+    if($row['SUM(total)'] == null) return 0;
+    
     return $row['SUM(total)'];
 }
 ?>
