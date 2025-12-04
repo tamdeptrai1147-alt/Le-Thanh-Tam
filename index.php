@@ -4,19 +4,22 @@ session_start();
 // Khởi tạo giỏ hàng nếu chưa tồn tại
 if(!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
 
+// THÊM: Khởi tạo danh sách sản phẩm đã xem nếu chưa tồn tại
+if(!isset($_SESSION['viewed_products'])) $_SESSION['viewed_products'] = [];
+
 // 1. Gọi các file Model
 include "model/pdo.php";
 include "model/product.php";
 include "model/category.php"; 
 include "model/user.php"; 
-include "model/bill.php"; // Bắt buộc có để xử lý đơn hàng
+include "model/bill.php"; 
 include "model/tintuc.php"; 
 
 // 2. Header
 include "view/header.php";
 
-// 3. Lấy dữ liệu dùng chung
-$spnew = loadall_product_home(); 
+// 3. Lấy dữ liệu dùng chung (Sửa lỗi loadall_product_home)
+$spnew = loadall_product(); 
 $dsdm = loadall_category();      
 
 // 4. Điều hướng (Controller)
@@ -185,20 +188,60 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             break;
 
         /* ===============================
-           4. SẢN PHẨM & MẶC ĐỊNH
+           4. SẢN PHẨM & TÌM KIẾM/LỌC
         ==================================*/
         case 'products':
-            $dssp = loadall_product_home();
+            // Xử lý tìm kiếm/lọc
+            $keyword = isset($_POST['keyword']) ? $_POST['keyword'] : "";
+            $iddm = isset($_GET['iddm']) ? $_GET['iddm'] : 0;
+            
+            // Dùng hàm loadall_product đã sửa đổi
+            $dssp = loadall_product($keyword, $iddm); 
+            
+            $ten_dm = ($iddm > 0 && function_exists('load_ten_dm')) ? load_ten_dm($iddm) : "Tất cả sản phẩm";
+            
             include "view/products.php";
             break;
             
         case 'product_detail':
             if(isset($_GET['id']) && ($_GET['id'] > 0)){
                 $id = $_GET['id'];
+                
+                // Khởi tạo an toàn 
+                $sp_cungloai = [];
+                $iddm = 0; 
+                $sp_da_xem = []; 
+
                 if(function_exists('loadone_product')){
                     $onesp = loadone_product($id);
-                    extract($onesp);
+                    
+                    if(is_array($onesp) && count($onesp) > 0){ 
+                        extract($onesp); // Tạo ra các biến như $iddm, $name, $description...
+                    }
+
+                    // Tải sản phẩm cùng loại
+                    if($iddm > 0) { 
+                        $sp_cungloai = load_product_cungloai($id, $iddm); 
+                    }
                 }
+                
+                // LOGIC 1: Quản lý Session sản phẩm đã xem
+                $id_int = (int)$id; 
+                if (!in_array($id_int, $_SESSION['viewed_products'])) {
+                    array_unshift($_SESSION['viewed_products'], $id_int); // Thêm ID sản phẩm hiện tại vào đầu (mới nhất)
+                    if (count($_SESSION['viewed_products']) > 5) {
+                        array_pop($_SESSION['viewed_products']);
+                    }
+                }
+                
+                // LOGIC 2: Tải chi tiết các sản phẩm đã xem (trừ sản phẩm hiện tại)
+                $viewed_ids_for_query = array_diff($_SESSION['viewed_products'], [$id_int]);
+                
+                if(!empty($viewed_ids_for_query)){
+                    // HÀM ĐÃ ĐƯỢC THÊM VÀO model/product.php ở bước 1
+                    $sp_da_xem = loadall_product_by_ids($viewed_ids_for_query); 
+                }
+
                 include "view/product_detail.php"; 
             } else {
                 include "view/home.php";
@@ -209,13 +252,29 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             include "view/home.php";
             break;
         /* ===============================
-           6. TIN TỨC (MỚI THÊM)
+           6. TIN TỨC
         ==================================*/
        case 'tintuc':
         $dstintuc = loadall_tintuc(); // Lấy dữ liệu từ DB gán vào biến
         include "view/news.php";
         break;
-        /* --- THÊM VÀO --- */
+        
+        // Chi tiết tin tức
+        case 'tintuc_chitiet':
+            if(isset($_GET['id']) && ($_GET['id'] > 0)){
+                $id = $_GET['id'];
+                $onetintuc = loadone_tintuc($id); 
+                $dstintuc = loadall_tintuc();
+                include "view/news_detail.php"; 
+            } else {
+                $dstintuc = loadall_tintuc();
+                include "view/news.php";
+            }
+            break;
+        case 'giai_phap':
+            include "view/solutions.php";
+            break;
+        /* --- LIÊN HỆ --- */
         case 'lienhe':
             include "view/contact.php";
             break;

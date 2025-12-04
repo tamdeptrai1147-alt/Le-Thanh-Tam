@@ -678,7 +678,7 @@ h3.checkout-title { font-size: 16px; font-weight: bold; margin-bottom: 15px; tex
 .news-info h3 a:hover { color: #d0021b; }
 .news-info .desc {
     font-size: 13px; color: #999; line-height: 1.5; margin-bottom: 15px;
-    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    /* Xóa display, -webkit-line-clamp, -webkit-box-orient, overflow */
 }
 .read-link {    
     margin-top: auto; color: #d0021b; font-size: 13px; font-weight: bold;
@@ -871,62 +871,312 @@ h3.checkout-title { font-size: 16px; font-weight: bold; margin-bottom: 15px; tex
         flex-direction: column; /* Các ô thông tin cũng xếp chồng */
     }
 }
-/* ================================================= */
-/* BANNER TRANG LIÊN HỆ (CONTACT BANNER)    */
-/* ================================================= */
+/* ========================================= */
+/* CSS CHO FOOTER MỚI (DARK MODE 3 CỘT - ĐẸP) */
+/* ========================================= */
 
-.contact-banner {
-    position: relative;
-    width: 100%;
-    height: 400px; /* Chiều cao banner (bạn có thể chỉnh 300px hoặc 500px tùy ý) */
-    overflow: hidden;
-    margin-bottom: 50px; /* Khoảng cách với phần Form bên dưới */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #000;
+footer {
+    background-color: #000 !important; /* Nền đen tuyền */
+    color: #fff;
+    padding-top: 50px;
+    border-top: 3px solid #d0021b; /* Viền đỏ nổi bật */
 }
 
-.contact-banner-img {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    object-fit: cover; /* Ảnh tự cắt cho vừa khung */
-    z-index: 1;
-    opacity: 0.6; /* Làm mờ ảnh gốc đi một chút */
+.footer-container {
+    display: flex; /* Bật Flexbox để xếp 3 cột */
+    justify-content: space-between;
+    gap: 30px;
+    padding-bottom: 30px;
 }
 
-.contact-overlay {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3), #050505); /* Hiệu ứng chuyển dần sang đen ở đáy */
-    z-index: 2;
+.footer-col {
+    width: 30%; /* Điều chỉnh độ rộng cho cột 2 và 3 */
 }
 
-.contact-banner-text {
-    position: relative;
-    z-index: 3; /* Nổi lên trên cùng */
+.footer-info {
+    width: 40%; /* Cột thông tin rộng hơn */
+}
+
+/* Tiêu đề cột */
+.footer-title {
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: #fff; /* Chữ tiêu đề trắng */
+    border-bottom: 1px solid #333; /* Gạch dưới mờ */
+    padding-bottom: 10px;
+}
+
+/* Logo (tương tự header) */
+.logo-footer {
+    color: #d0021b; font-size: 24px; font-weight: bold; 
+    border: 2px solid #d0021b; padding: 5px 15px; letter-spacing: 2px;
+    display: inline-block;
+    margin: 15px 0 20px 0;
+}
+
+.footer-info p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    color: #ccc; /* Thông tin chữ xám nhạt */
+}
+
+.footer-info p i {
+    color: #d0021b; /* Icon màu đỏ */
+    margin-right: 10px;
+    width: 20px;
     text-align: center;
+}
+
+/* Danh sách link chính sách/hướng dẫn */
+.footer-policy ul, .footer-guide ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-policy li, .footer-guide li {
+    margin-bottom: 12px;
+    transition: 0.3s;
+}
+
+.footer-policy a, .footer-guide a {
+    color: #ccc;
+    font-size: 14px;
+}
+
+.footer-policy a:hover, .footer-guide a:hover {
+    color: #d0021b;
+    padding-left: 5px; /* Hiệu ứng dịch chuyển nhẹ */
+}
+
+.footer-policy i, .footer-guide i {
+    color: #d0021b;
+    font-size: 10px;
+    margin-right: 8px;
+}
+
+/* Icons mạng xã hội */
+.social-icons {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+}
+.social-icons a {
+    color: #fff;
+    font-size: 20px;
+    transition: 0.3s;
+}
+.social-icons a:hover {
+    color: #d0021b;
+    transform: scale(1.1);
+}
+
+/* Phần bản quyền dưới cùng */
+.footer-bottom {
+    border-top: 1px solid #333;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin-top: 20px;
+    background-color: #0a0a0a; /* Đen nhạt hơn cho phần dưới */
+}
+
+/* ========================================= */
+/* CSS RESPONSIVE (Làm đẹp trên điện thoại)  */
+/* ========================================= */
+
+@media (max-width: 992px) {
+    .footer-container {
+        flex-direction: column; /* Xếp cột chồng lên nhau */
+        gap: 40px;
+    }
+    .footer-col {
+        width: 100% !important; /* Chiếm toàn bộ chiều rộng */
+        text-align: center;
+    }
+    /* Đảm bảo chữ trong cột info được căn giữa */
+    .footer-info p {
+        text-align: center;
+        padding-left: 20px; /* Bù trừ khoảng cách ban đầu của icon */
+    }
+    /* Căn giữa icon mạng xã hội */
+    .social-icons {
+        justify-content: center;
+    }
+    /* Căn giữa tiêu đề chính sách/hướng dẫn */
+    .footer-policy h3, .footer-guide h3, .footer-title {
+        text-align: center;
+    }
+    /* Căn giữa danh sách link (Policy/Guide) */
+    .footer-policy ul, .footer-guide ul {
+        width: fit-content; /* Giới hạn chiều rộng danh sách */
+        margin: 0 auto; /* Căn giữa danh sách */
+        text-align: left; /* Đảm bảo các dòng text vẫn thẳng hàng bên trái */
+    }
+}
+/* ========================================= */
+/* CSS TRANG GIẢI PHÁP (SOLUTIONS PAGE)     */
+/* ========================================= */
+
+.solutions-page {
+    background-color: #050505;
     color: #fff;
 }
 
-.contact-banner-text h1 {
-    font-size: 42px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    text-shadow: 0 0 10px rgba(208, 2, 27, 0.5); /* Phát sáng nhẹ màu đỏ */
+/* 1. Banner Giải pháp */
+.sol-banner {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    border-bottom: 2px solid #d0021b;
 }
 
-.contact-banner-text p {
-    font-size: 18px;
-    color: #ccc;
-    font-weight: 300;
+.sol-bg-img {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: 1; opacity: 0.5;
 }
 
-/* Responsive trên điện thoại */
+.sol-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.9) 100%);
+    z-index: 2;
+}
+
+.sol-content {
+    position: relative; z-index: 3;
+}
+
+.sol-subtitle {
+    color: #d0021b; font-weight: bold; letter-spacing: 3px; font-size: 14px;
+    text-transform: uppercase; display: block; margin-bottom: 10px;
+}
+
+.sol-content h1 {
+    font-size: 42px; text-transform: uppercase; margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(208, 2, 27, 0.6);
+}
+
+.sol-content p {
+    font-size: 16px; color: #ccc; margin-bottom: 30px; line-height: 1.6;
+}
+
+.btn-scroll-down {
+    padding: 12px 30px; background: transparent; border: 2px solid #d0021b;
+    color: #d0021b; font-weight: bold; text-transform: uppercase;
+    border-radius: 50px; transition: 0.3s;
+}
+
+.btn-scroll-down:hover {
+    background: #d0021b; color: #fff; box-shadow: 0 0 15px #d0021b;
+}
+
+/* 2. Grid Giải pháp */
+.section-title-center {
+    text-align: center; font-size: 28px; text-transform: uppercase;
+    margin-bottom: 50px; color: #fff; border-bottom: 1px solid #333;
+    padding-bottom: 15px; display: inline-block; 
+    left: 50%; position: relative; transform: translateX(-50%);
+}
+
+.sol-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 cột */
+    gap: 30px;
+}
+
+.sol-card {
+    background: #111; border: 1px solid #333; padding: 40px;
+    border-radius: 10px; transition: 0.3s; position: relative;
+    overflow: hidden;
+}
+
+.sol-card:hover {
+    border-color: #d0021b; transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Icon tròn */
+.sol-icon {
+    width: 60px; height: 60px; line-height: 60px; text-align: center;
+    background: #222; border-radius: 50%; color: #d0021b;
+    font-size: 24px; margin-bottom: 20px; transition: 0.3s;
+}
+
+.sol-card:hover .sol-icon {
+    background: #d0021b; color: #fff;
+}
+
+.sol-card h3 {
+    font-size: 20px; text-transform: uppercase; margin-bottom: 15px;
+}
+
+.sol-desc {
+    color: #999; font-size: 14px; line-height: 1.6; margin-bottom: 20px;
+    height: 45px; overflow: hidden; /* Giới hạn chiều cao mô tả */
+}
+
+/* Danh sách cấu hình gợi ý */
+.sol-specs {
+    list-style: none; padding: 0; margin-bottom: 25px;
+    border-top: 1px solid #222; padding-top: 15px;
+}
+
+.sol-specs li {
+    font-size: 13px; color: #ccc; margin-bottom: 8px;
+}
+
+.sol-specs i { color: #d0021b; margin-right: 10px; }
+
+/* Nút xem chi tiết */
+.btn-sol-detail {
+    display: inline-block; font-size: 13px; font-weight: bold;
+    color: #fff; text-transform: uppercase; transition: 0.3s;
+}
+
+.btn-sol-detail:hover {
+    color: #d0021b; letter-spacing: 1px;
+}
+
+/* Highlight Card (Card AI) */
+.highlight-card {
+    background: linear-gradient(145deg, #1a0505 0%, #000 100%);
+    border: 1px solid #500;
+}
+
+/* 3. Cam kết dịch vụ dưới cùng */
+.service-commit {
+    background: #111; padding: 40px 0; border-top: 1px solid #333;
+}
+
+.commit-row {
+    display: flex; justify-content: space-between; text-align: center;
+}
+
+.commit-item { flex: 1; padding: 0 20px; border-right: 1px solid #333; }
+.commit-item:last-child { border-right: none; }
+
+.commit-item i {
+    font-size: 30px; color: #d0021b; margin-bottom: 15px;
+}
+
+.commit-item h4 {
+    font-size: 16px; margin-bottom: 5px; text-transform: uppercase;
+}
+
+.commit-item p { font-size: 13px; color: #777; }
+
+/* Responsive */
 @media (max-width: 768px) {
-    .contact-banner { height: 250px; }
-    .contact-banner-text h1 { font-size: 28px; }
+    .sol-grid { grid-template-columns: 1fr; } /* Về 1 cột trên mobile */
+    .commit-row { flex-direction: column; gap: 30px; }
+    .commit-item { border-right: none; }
+    .sol-content h1 { font-size: 28px; }
 }
