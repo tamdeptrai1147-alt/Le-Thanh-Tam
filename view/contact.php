@@ -53,6 +53,15 @@
 
         <div class="contact-form-wrapper">
             <h2 class="contact-title">Gửi tin nhắn cho chúng tôi</h2>
+            
+            <?php 
+                if(isset($thongbao) && $thongbao != ""){
+                    echo '<p style="color: #4caf50; font-weight: bold; text-align: center; margin-bottom: 20px; font-size: 16px;">
+                            <i class="fa-solid fa-circle-check"></i> '.$thongbao.'
+                          </p>';
+                }
+            ?>
+            
             <form action="index.php?act=gui_lienhe" method="post">
                 <div class="form-group">
                     <input type="text" name="hoten" class="form-control" placeholder="Họ và tên *" required>

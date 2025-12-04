@@ -11,6 +11,7 @@ include "model/category.php";
 include "model/user.php"; 
 include "model/bill.php"; 
 include "model/tintuc.php";
+include "model/lienhe.php";
 
 
 
@@ -301,6 +302,22 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
         case 'giai_phap':
         include "view/solutionsp.php";
         break;
+        case 'gui_lienhe':
+            // Chỉ cần kiểm tra isset là đủ
+            if(isset($_POST['gui_lh'])){
+                $name = $_POST['hoten'];
+                $email = $_POST['email'];
+                $tel = $_POST['sdt'];
+                $subject = $_POST['tieude'];
+                $content = $_POST['noidung'];
+                send_mail_lienhe($name, $email, $tel, $subject, $content);
+                insert_lienhe($name, $email, $tel, $subject, $content);
+                $thongbao = "Gửi liên hệ thành công! Chúng tôi sẽ sớm phản hồi.";
+            }
+            include "view/contact.php";
+            break;
+
+        
     }
       
 
