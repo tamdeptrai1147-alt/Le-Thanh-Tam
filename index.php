@@ -80,26 +80,48 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             break;
 
         // --- ĐOẠN BẠN ĐANG THIẾU ĐÂY NÀY ---
+        // ... Bên trong switch ($act) ...
+
         case 'edit_taikhoan':
             if(isset($_POST['capnhat']) && ($_POST['capnhat'])){
                 $user = $_POST['user']; 
                 $pass = $_POST['pass']; 
-                // Kiểm tra: Nếu bên View có gửi email thì lấy, nếu không có thì lấy lại email cũ trong Session
-            $email = isset($_POST['email']) ? $_POST['email'] : $_SESSION['user']['email'];
-                $address = $_POST['address']; 
+                $email = $_POST['email']; 
+                $address = $_POST['address']; // Lấy lại địa chỉ cũ (ẩn)
                 $tel = $_POST['tel']; 
                 $id = $_POST['id'];
         
-                // Gọi hàm update trong model
                 update_user($id, $user, $pass, $email, $address, $tel);
-                
-                // Cập nhật lại session để hiển thị ngay thông tin mới
                 $_SESSION['user'] = check_user($user, $pass); 
-        
-                $thongbao = "Cập nhật tài khoản thành công!";
+                $thongbao = "Cập nhật hồ sơ thành công!";
             }
             include "view/edit_taikhoan.php";
             break;
+
+        // --- THÊM PHẦN NÀY ---
+        case 'address':
+            if(isset($_POST['capnhat_address']) && ($_POST['capnhat_address'])){
+                // Chỉ lấy dữ liệu địa chỉ mới, các cái khác giữ nguyên từ form ẩn
+                $id = $_POST['id'];
+                $address = $_POST['address']; // Địa chỉ mới nhập
+                
+                $user = $_POST['user'];
+                $pass = $_POST['pass'];
+                $email = $_POST['email'];
+                $tel = $_POST['tel'];
+
+                // Gọi hàm update (Dùng chung hàm update_user vì ta đang lưu vào bảng users)
+                update_user($id, $user, $pass, $email, $address, $tel);
+                
+                // Cập nhật session
+                $_SESSION['user'] = check_user($user, $pass);
+                $thongbao = "Đã lưu địa chỉ mới!";
+            }
+            // Lấy dữ liệu user hiện tại để hiển thị
+            if(isset($_SESSION['user'])) extract($_SESSION['user']);
+            include "view/address.php";
+            break;
+        // ---------------------
         // ------------------------------------
 
         /* ===============================
@@ -292,7 +314,21 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             $dstintuc = loadall_tintuc(); 
             include "view/news.php";
             break;
-            
+        case 'tintuc_chitiet':
+            if(isset($_GET['id']) && ($_GET['id'] > 0)){
+                $id = $_GET['id'];
+                // Gọi hàm lấy dữ liệu bài viết
+                $onesp = loadone_tintuc($id);
+                extract($onesp); // Giải nén để có các biến $tieude, $noidung...
+                
+                // Cập nhật lượt xem (nếu muốn, chưa cần thiết ngay)
+                // update_view_tintuc($id); 
+
+                include "view/news_detail.php";
+            } else {
+                include "view/news.php";
+            }
+            break;
         case 'lienhe':
             include "view/contact.php";
             break;

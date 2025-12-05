@@ -3,28 +3,9 @@
         extract($_SESSION['user']);
     }
 ?>
-
 <div class="account-page">
     
-    <div class="acc-sidebar">
-        <div class="user-profile-mini">
-            <div class="user-avatar">
-                <i class="fa-solid fa-user"></i>
-            </div>
-            <div class="user-info-text">
-                <strong><?=$user?></strong>
-                <span><i class="fa-solid fa-pen"></i> Sửa hồ sơ</span>
-            </div>
-        </div>
-
-        <nav class="acc-menu">
-            <ul>
-                <li><a href="index.php?act=edit_taikhoan" class="active"><i class="fa-solid fa-user"></i> Hồ sơ của tôi</a></li>
-                <li><a href="index.php?act=mybill"><i class="fa-solid fa-file-invoice"></i> Đơn mua</a></li>
-                <li><a href="index.php?act=thoat" style="color: #666;"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
-            </ul>
-        </nav>
-    </div>
+    <?php include "view/box_left_acc.php"; ?>
 
     <div class="acc-content">
         <div class="acc-header">
@@ -33,23 +14,23 @@
         </div>
 
         <form action="index.php?act=edit_taikhoan" method="post">
-            
             <div class="form-row">
                 <div class="form-label">Tên đăng nhập</div>
                 <div class="form-input-box">
-                    <input type="text" name="user" class="acc-input" value="<?=$user?>" readonly>
-                    <span class="form-note">Tên đăng nhập không thể thay đổi</span>
+                    <input type="text" name="user" class="acc-input" value="<?=$user?>" readonly style="background: #222;">
                 </div>
             </div>
-
-            <div class="form-row">
-                <div class="form-label">Mật khẩu</div>
-                <div class="form-input-box">
-                    <input type="text" name="pass" class="acc-input" value="<?=$pass?>">
-                </div>
-            </div>
-
             
+            <div class="form-row">
+    <div class="form-label">Email</div>
+    <div class="form-input-box">
+        <input type="text" name="email" class="acc-input" value="<?=$email?>" readonly style="background: #222; color: #888; cursor: not-allowed;">
+        
+        <span style="color: #555; font-size: 12px; margin-top: 5px; display: block;">
+            Email đăng ký không thể thay đổi
+        </span>
+    </div>
+</div>
 
             <div class="form-row">
                 <div class="form-label">Số điện thoại</div>
@@ -58,16 +39,15 @@
                 </div>
             </div>
 
-             <div class="form-row">
-                <div class="form-label">Địa chỉ</div>
+            <div class="form-row">
+                <div class="form-label">Mật khẩu</div>
                 <div class="form-input-box">
-                    <input type="text" name="address" class="acc-input" value="<?=$address?>">
+                    <input type="password" name="pass" class="acc-input" value="<?=$pass?>">
                 </div>
             </div>
-
+            
+            <input type="hidden" name="address" value="<?=$address?>">
             <input type="hidden" name="id" value="<?=$id?>">
-
-            <input type="hidden" name="email" value="<?=$email?>">
 
             <div class="form-row">
                 <div class="form-label"></div>
@@ -75,13 +55,11 @@
                     <button type="submit" name="capnhat" value="1" class="btn-save-acc">Lưu Thay Đổi</button>
                 </div>
             </div>
-            
-            <?php 
+             <?php 
                 if(isset($thongbao) && ($thongbao!="")){
-                    echo '<div style="margin-top: 20px; padding: 10px; background: rgba(0,255,0,0.1); border: 1px solid #00ff00; color: #00ff00; text-align: center; border-radius: 4px;">'.$thongbao.'</div>';
+                    echo '<div style="margin-top: 20px; color: #d0021b; font-weight: bold; text-align: center;">'.$thongbao.'</div>';
                 }
             ?>
-
         </form>
     </div>
 </div>

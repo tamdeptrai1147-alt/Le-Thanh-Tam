@@ -273,32 +273,87 @@ del { color: #666; font-size: 12px; }
 /* ================================================= */
 /* 7. ACCOUNT PAGE (GAMING PRO STYLE) */
 /* ================================================= */
+/* --- 1. CHIA CỘT (QUAN TRỌNG NHẤT) --- */
 .account-page {
-    width: 1200px; margin: 60px auto; display: flex; gap: 40px;
-    align-items: flex-start; color: #fff;
+    display: flex !important;       /* Bắt buộc dùng Flexbox để chia cột */
+    flex-direction: row !important; /* Xếp ngang (Trái - Phải) */
+    align-items: flex-start;        /* Căn hàng từ trên xuống */
+    gap: 30px;                      /* Khoảng cách giữa cột trái và phải */
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 15px;
 }
-/* Sidebar */
+
+/* --- 2. CỘT TRÁI (SIDEBAR) --- */
 .acc-sidebar {
-    width: 300px; background: #121212; border: 1px solid #2a2a2a;
-    border-radius: 12px; padding: 30px 25px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    width: 280px;            /* Cố định chiều rộng cột trái */
+    flex-shrink: 0;          /* Không cho cột này co lại */
+    background: #111;        /* Nền đen */
+    border: 1px solid #333;  /* Viền xám mờ */
+    border-radius: 5px;
 }
+
+/* Ảnh đại diện nhỏ ở trên cùng */
 .user-profile-mini {
-    display: flex; align-items: center; gap: 20px; padding-bottom: 25px;
-    border-bottom: 1px solid #2a2a2a; margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #333;
+    gap: 15px;
 }
 .user-avatar {
-    width: 64px; height: 64px; background: #1e1e1e; border-radius: 50%;
-    display: flex; justify-content: center; align-items: center;
-    font-size: 24px; color: #d0021b; border: 3px solid #d0021b;
+    width: 45px; height: 45px;
+    background: #222; border-radius: 50%;
+    color: #d0021b; /* Màu đỏ DragonCore */
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; border: 1px solid #d0021b;
+}
+
+/* Danh sách menu dọc */
+.acc-menu ul {
+    list-style: none; padding: 0; margin: 0;
+    display: block !important; /* Bắt buộc xếp dọc */
+}
+.acc-menu ul li {
+    display: block; /* Mỗi mục là 1 dòng */
+    width: 100%;
 }
 .acc-menu ul li a {
-    display: flex; align-items: center; gap: 12px; padding: 14px 20px;
-    color: #aaa; border-radius: 8px; font-size: 15px; transition: 0.3s;
+    display: flex;              /* Để icon và chữ thẳng hàng */
+    align-items: center;
+    width: 100%;
+    padding: 15px 20px;
+    color: #bbb;                /* Chữ màu xám trắng */
+    border-bottom: 1px solid #1a1a1a; /* Gạch mờ giữa các dòng */
+    transition: 0.3s;
+    font-size: 14px;
+    text-transform: capitalize; /* Chữ thường, không viết hoa toàn bộ cho dễ đọc */
 }
+.acc-menu ul li a i {
+    width: 25px; text-align: center; margin-right: 10px; color: #666;
+}
+
+/* Hiệu ứng khi di chuột hoặc đang chọn */
 .acc-menu ul li a:hover, .acc-menu ul li a.active {
-    background: #d0021b; color: #fff; box-shadow: 0 4px 10px rgba(208, 2, 27, 0.4);
+    background: #1a1a1a;
+    color: #d0021b; /* Chữ chuyển đỏ */
+    border-left: 3px solid #d0021b; /* Có vạch đỏ bên trái giống mẫu */
 }
+.acc-menu ul li a:hover i, .acc-menu ul li a.active i {
+    color: #d0021b; /* Icon cũng đỏ */
+}
+
+/* --- 3. CỘT PHẢI (NỘI DUNG) --- */
+.acc-content {
+    flex: 1; /* Chiếm hết phần còn lại */
+    background: #111;
+    border: 1px solid #333;
+    padding: 30px;
+    border-radius: 5px;
+}
+/* Tiêu đề form */
+.acc-header { border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 25px; }
+.acc-header h2 { text-align: left; margin: 0; font-size: 20px; color: #fff; }
 
 /* Nội dung chính */
 .acc-content {
@@ -963,3 +1018,174 @@ font-size: 13px; color: #ccc; margin-bottom: 8px;
 .table-cart tbody tr:hover {
     background-color: #252525;
 }
+/* ================================================= */
+/* ACCOUNT PAGE - DRAGON CORE STYLE (VERTICAL LAYOUT) */
+/* ================================================= */
+.account-page {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    gap: 30px;
+    padding: 0 15px;
+    align-items: flex-start; /* Quan trọng để sidebar không bị kéo giãn */
+}
+
+/* --- 1. SIDEBAR BÊN TRÁI --- */
+.acc-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    background: #111; /* Đen nhám */
+    border-radius: 4px;
+    border: 1px solid #333;
+    overflow: hidden;
+}
+
+/* Avatar User */
+.user-profile-mini {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid #222;
+    background: #0a0a0a;
+}
+.user-avatar {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: #333;
+    display: flex; align-items: center; justify-content: center;
+    color: #ccc; font-size: 20px;
+    border: 2px solid #d0021b; /* Viền đỏ */
+}
+.user-info-text strong {
+    display: block; color: #fff; font-size: 14px; margin-bottom: 4px;
+}
+.user-info-text span {
+    color: #888; font-size: 12px; display: block;
+}
+
+/* Menu dọc */
+.acc-menu ul { list-style: none; padding: 0; margin: 0; }
+.acc-menu ul li a {
+    display: flex; align-items: center; gap: 10px;
+    padding: 15px 20px;
+    color: #ccc;
+    font-size: 14px;
+    transition: 0.3s;
+    border-bottom: 1px solid #1a1a1a;
+}
+.acc-menu ul li a i { width: 20px; text-align: center; }
+
+/* Hiệu ứng Hover & Active */
+.acc-menu ul li a:hover, 
+.acc-menu ul li a.active {
+    background: #1a1a1a;
+    color: #d0021b; /* Chữ chuyển đỏ */
+    border-left: 3px solid #d0021b; /* Gạch đỏ bên trái */
+}
+
+/* --- 2. NỘI DUNG BÊN PHẢI --- */
+.acc-content {
+    flex: 1; /* Chiếm hết phần còn lại */
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.acc-header {
+    border-bottom: 1px solid #333;
+    padding-bottom: 20px; margin-bottom: 30px;
+}
+.acc-header h2 {
+    margin: 0; text-align: left; font-size: 22px; text-transform: uppercase;
+    color: #fff; letter-spacing: 1px;
+}
+.acc-header p { color: #888; font-size: 14px; margin-top: 5px; }
+
+/* Form Input đẹp hơn */
+.form-row {
+    display: flex; align-items: center; margin-bottom: 25px;
+}
+.form-label {
+    width: 150px; color: #bbb; font-size: 14px; text-align: right; margin-right: 30px;
+}
+.form-input-box { flex: 1; }
+.acc-input {
+    width: 100%; height: 40px;
+    background: #000; border: 1px solid #333;
+    color: #fff; padding: 0 15px; border-radius: 4px; outline: none;
+}
+.acc-input:focus { border-color: #d0021b; }
+
+.btn-save-acc {
+    background: #d0021b; color: #fff; border: none;
+    padding: 12px 30px; border-radius: 4px; font-weight: bold; cursor: pointer;
+    text-transform: uppercase; margin-top: 10px;
+}
+.btn-save-acc:hover { background: #b00000; box-shadow: 0 0 10px #d0021b; }  
+/* ========================================= */
+/* CSS TRANG CHI TIẾT TIN TỨC (NEWS DETAIL) */
+/* ========================================= */
+.news-detail-page {
+    background-color: #050505;
+    color: #fff;
+    padding: 40px 0;
+}
+
+.breadcrumb {
+    color: #888; margin-bottom: 20px; font-size: 14px;
+}
+.breadcrumb a { color: #ccc; }
+.breadcrumb a:hover { color: #d0021b; }
+
+.news-content-wrapper {
+    background: #111;
+    border: 1px solid #333;
+    padding: 40px;
+    border-radius: 8px;
+    max-width: 900px; /* Giới hạn chiều rộng cho dễ đọc */
+    margin: 0 auto; /* Canh giữa */
+}
+
+.news-title-main {
+    font-size: 32px;
+    color: #fff;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    text-transform: none; /* Không bắt buộc viết hoa hết */
+    text-align: left; /* Canh trái cho dễ đọc */
+}
+
+.news-meta {
+    color: #666; font-size: 13px; margin-bottom: 20px; display: flex; gap: 20px;
+}
+.news-divider { border: 0; border-top: 1px solid #333; margin-bottom: 30px; }
+
+.news-main-image img {
+    width: 100%; height: auto; border-radius: 5px; margin-bottom: 30px;
+    border: 1px solid #333;
+}
+
+/* Nội dung bài viết */
+.news-body-text {
+    font-size: 16px;
+    line-height: 1.8; /* Khoảng cách dòng thoáng */
+    color: #ddd;
+    text-align: justify;
+}
+.news-body-text p { margin-bottom: 20px; }
+.news-body-text img { 
+    max-width: 100%; height: auto; display: block; margin: 20px auto; 
+}
+.news-body-text h2, .news-body-text h3 {
+    color: #d0021b; margin-top: 30px; margin-bottom: 15px;
+}
+
+.news-footer-action { margin-top: 50px; text-align: center; }
+.btn-back-news {
+    padding: 10px 25px; border: 1px solid #d0021b; color: #d0021b;
+    border-radius: 30px; font-weight: bold; transition: 0.3s;
+}
+.btn-back-news:hover { background: #d0021b; color: #fff; }
