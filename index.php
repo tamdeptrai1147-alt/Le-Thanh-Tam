@@ -12,6 +12,7 @@ include "model/user.php";
 include "model/bill.php"; 
 include "model/tintuc.php";
 include "model/lienhe.php";
+include "model/solutions.php";
 
 
 
@@ -336,9 +337,22 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
         default:
             include "view/home.php";
             break;
+        /* --- KHU VỰC GIẢI PHÁP --- */
         case 'giai_phap':
-        include "view/solutionsp.php";
-        break;
+            $ds_giaiphap = loadall_solutions(); // Lấy dữ liệu từ DB
+            include "view/solutionsp.php";
+            break;
+
+        case 'giai_phap_chitiet':
+            if(isset($_GET['id']) && ($_GET['id'] > 0)){
+                $id = $_GET['id'];
+                $one_sol = loadone_solution($id);
+                extract($one_sol);
+                include "view/solution_detail.php";
+            } else {
+                include "view/solutionsp.php";
+            }
+            break;
         case 'gui_lienhe':
             // Chỉ cần kiểm tra isset là đủ
             if(isset($_POST['gui_lh'])){

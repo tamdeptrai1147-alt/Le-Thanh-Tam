@@ -16,61 +16,41 @@
         
         <div class="sol-grid">
             
-            <div class="sol-card">
-                <div class="sol-icon">
-                    <i class="fa-solid fa-pen-ruler"></i>
+            <?php
+            // Kiểm tra xem biến $ds_giaiphap có dữ liệu không (lấy từ Controller)
+            if(isset($ds_giaiphap) && is_array($ds_giaiphap) && count($ds_giaiphap) > 0){
+                foreach ($ds_giaiphap as $sol) {
+                    extract($sol);
+                    
+                    // Tạo link dẫn sang trang chi tiết bài viết (giai_phap_chitiet)
+                    $link_detail = "index.php?act=giai_phap_chitiet&id=" . $id;
+                    
+                    // Xử lý icon: Nếu trong database không có icon thì dùng icon mặc định
+                    $icon_hien_thi = ($icon != "") ? $icon : "fa-solid fa-microchip";
+            ?>
+            
+                <div class="sol-card">
+                    <div class="sol-icon">
+                        <i class="<?=$icon_hien_thi?>"></i>
+                    </div>
+                    <h3><?=$tieude?></h3>
+                    
+                    <p class="sol-desc">
+                        <?=$mota_ngan?>
+                    </p>
+                    
+                    <a href="<?=$link_detail?>" class="btn-sol-detail">
+                        XEM CHI TIẾT <i class="fa-solid fa-arrow-right"></i>
+                    </a>
                 </div>
-                <h3>PC ĐỒ HỌA 2D & 3D</h3>
-                <p class="sol-desc">Cấu hình tối ưu cho các phần mềm Adobe (Photoshop, AI), AutoCAD, 3dsMax. Mượt mà từng thao tác thiết kế.</p>
-                <ul class="sol-specs">
-                    <li><i class="fa-solid fa-check"></i> CPU xung nhịp cao (Core i5/i7)</li>
-                    <li><i class="fa-solid fa-check"></i> RAM 16GB - 32GB</li>
-                    <li><i class="fa-solid fa-check"></i> VGA Quadro / RTX ổn định</li>
-                </ul>
-                <a href="index.php?act=products&iddm=1" class="btn-sol-detail">XEM CẤU HÌNH <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
 
-            <div class="sol-card">
-                <div class="sol-icon">
-                    <i class="fa-solid fa-film"></i>
-                </div>
-                <h3>PC RENDER & EDIT VIDEO</h3>
-                <p class="sol-desc">Sức mạnh xử lý cho Premiere Pro, After Effect, Davinci Resolve. Render video 4K nhanh chóng, preview mượt mà.</p>
-                <ul class="sol-specs">
-                    <li><i class="fa-solid fa-check"></i> CPU đa nhân (i9 / Ryzen 9)</li>
-                    <li><i class="fa-solid fa-check"></i> RAM 32GB - 64GB</li>
-                    <li><i class="fa-solid fa-check"></i> VGA RTX 3060/4070 VRAM lớn</li>
-                </ul>
-                <a href="index.php?act=products&iddm=2" class="btn-sol-detail">XEM CẤU HÌNH <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
-
-            <div class="sol-card highlight-card">
-                <div class="sol-icon">
-                    <i class="fa-solid fa-brain"></i>
-                </div>
-                <h3>PC AI & DEEP LEARNING</h3>
-                <p class="sol-desc">Hệ thống Workstation chạy mô hình AI, Machine Learning, Data Science với sức mạnh tính toán song song khủng khiếp.</p>
-                <ul class="sol-specs">
-                    <li><i class="fa-solid fa-check"></i> Dual GPU RTX 3090 / 4090</li>
-                    <li><i class="fa-solid fa-check"></i> CPU Threadripper / Xeon</li>
-                    <li><i class="fa-solid fa-check"></i> Nguồn công suất thực 1000W+</li>
-                </ul>
-                <a href="index.php?act=products&iddm=3" class="btn-sol-detail">XEM CẤU HÌNH <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
-
-            <div class="sol-card">
-                <div class="sol-icon">
-                    <i class="fa-solid fa-mobile-screen-button"></i>
-                </div>
-                <h3>PC GIẢ LẬP NOX/LDPLAYER</h3>
-                <p class="sol-desc">Chạy 20-50-100 tab giả lập điện thoại cùng lúc để cày game, nuôi nick MMO ổn định 24/7 không giật lag.</p>
-                <ul class="sol-specs">
-                    <li><i class="fa-solid fa-check"></i> CPU Dual Xeon (24-48 nhân)</li>
-                    <li><i class="fa-solid fa-check"></i> RAM ECC 64GB - 128GB</li>
-                    <li><i class="fa-solid fa-check"></i> SSD NVMe tốc độ cao</li>
-                </ul>
-                <a href="index.php?act=products&iddm=4" class="btn-sol-detail">XEM CẤU HÌNH <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
+            <?php 
+                } // Kết thúc vòng lặp foreach
+            } else {
+                // Trường hợp chưa nhập dữ liệu vào Database
+                echo '<p style="text-align:center; width:100%; color:#888;">Hệ thống đang cập nhật danh mục giải pháp...</p>';
+            }
+            ?>
 
         </div>
     </div>
