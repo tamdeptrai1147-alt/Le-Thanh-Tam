@@ -18,24 +18,40 @@
                 <li><a href="index.php">Trang chủ</a></li>
                 
                 <li class="has-mega-menu">
-                    <a href="index.php?act=products">LINH KIỆN PC <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i></a>
-                    <div class="mega-menu">
-                        <div class="mega-content">
-                            <div class="mega-col">
-                                <h3>VI XỬ LÝ & MAIN</h3>
-                                <ul><li><a href="#">CPU - Bộ vi xử lý</a></li><li><a href="#">MAINBOARD - Bo mạch chủ</a></li></ul>
-                            </div>
-                            <div class="mega-col">
-                                <h3>BỘ NHỚ & LƯU TRỮ</h3>
-                                <ul><li><a href="#">RAM - Bộ nhớ trong</a></li><li><a href="#">SSD - Ổ cứng thể rắn</a></li></ul>
-                            </div>
-                            <div class="mega-col">
-                                <h3>ĐỒ HỌA & MÀN HÌNH</h3>
-                                <ul><li><a href="#">VGA - Card Màn Hình</a></li><li><a href="#">LCD - Màn hình</a></li></ul>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+    <a href="index.php?act=products">LINH KIỆN PC <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i></a>
+    <div class="mega-menu">
+        <div class="mega-content">
+            <div class="mega-col">
+                <h3>VI XỬ LÝ & MAIN</h3>
+                <ul>
+                    <li><a href="index.php?act=products&iddm=1">CPU - Bộ vi xử lý</a></li>
+                    <li><a href="index.php?act=products&iddm=2">MAINBOARD - Bo mạch chủ</a></li>
+                </ul>
+            </div>
+            <div class="mega-col">
+                <h3>BỘ NHỚ & LƯU TRỮ</h3>
+                <ul>
+                    <li><a href="index.php?act=products&iddm=3">RAM - Bộ nhớ trong</a></li>
+                    <li><a href="index.php?act=products&iddm=4">SSD - Ổ cứng thể rắn</a></li>
+                </ul>
+            </div>
+            <div class="mega-col">
+                <h3>ĐỒ HỌA & MÀN HÌNH</h3>
+                <ul>
+                    <li><a href="index.php?act=products&iddm=5">VGA - Card Màn Hình</a></li>
+                    <li><a href="index.php?act=products&iddm=6">LCD - Màn hình</a></li>
+                </ul>
+            </div>
+            <div class="mega-col">
+                <h3>NGUỒN & CASE</h3>
+                <ul>
+                    <li><a href="index.php?act=products&iddm=7">PSU - Nguồn máy tính</a></li>
+                    <li><a href="index.php?act=products&iddm=8">CASE - Vỏ máy tính</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</li>
 
                 <li><a href="index.php?act=giai_phap">Giải pháp</a></li>
                 <li><a href="index.php?act=tintuc">Tin Tức</a></li>

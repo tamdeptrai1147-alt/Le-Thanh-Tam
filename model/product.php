@@ -52,4 +52,17 @@ function tang_luotxem($id){
     $sql = "UPDATE products SET view = view + 1 WHERE id=".$id;
     pdo_execute($sql);
 }
+function load_product_cungloai($id, $iddm){
+    // 1. Thử lấy sản phẩm cùng danh mục (trừ sản phẩm đang xem)
+    $sql = "SELECT * FROM products WHERE category_id=".$iddm." AND id <> ".$id." LIMIT 0,4";
+    $listproduct = pdo_query($sql);
+
+    // 2. Nếu danh sách rỗng (không có sản phẩm cùng loại), lấy đại 4 sản phẩm ngẫu nhiên
+    if(count($listproduct) == 0){
+        $sql = "SELECT * FROM products WHERE id <> ".$id." ORDER BY RAND() LIMIT 0,4";
+        $listproduct = pdo_query($sql);
+    }
+    
+    return $listproduct;
+}
 ?>

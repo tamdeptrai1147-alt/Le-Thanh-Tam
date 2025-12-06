@@ -1,8 +1,9 @@
 <?php
 session_start();
 
-// Khởi tạo giỏ hàng nếu chưa tồn tại
+// Khởi tạo giỏ hàng
 if(!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
+if(!isset($_SESSION['viewed_products'])) $_SESSION['viewed_products'] = [];
 
 // 1. Gọi các file Model
 include "model/pdo.php";
@@ -14,12 +15,10 @@ include "model/tintuc.php";
 include "model/lienhe.php";
 include "model/solutions.php";
 
-
-
 // 2. Header
 include "view/header.php";
 
-// 3. Lấy dữ liệu dùng chung
+// 3. Lấy dữ liệu dùng chung (cho trang chủ)
 $spnew = loadall_product_home(); 
 $dsdm = loadall_category();      
 
@@ -47,7 +46,7 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             include "view/dangky.php";
             break;
 
-     case 'dangnhap':
+        case 'dangnhap':
             if(isset($_POST['dangnhap']) && ($_POST['dangnhap'])){
                 $user = $_POST['user'];
                 $pass = $_POST['pass'];
@@ -55,17 +54,11 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
                 
                 if(is_array($checkuser)){
                     $_SESSION['user'] = $checkuser;
-                    
-                    // --- ĐOẠN CODE MỚI: KIỂM TRA QUYỀN ---
                     if($checkuser['role'] == 1) {
-                        // Nếu là Admin (role=1) thì vào trang Admin
                         header('Location: admin/index.php');
                     } else {
-                        // Nếu là Khách thì về Trang chủ
                         header('Location: index.php');
                     }
-                    // -------------------------------------
-                    
                     exit();
                 } else {
                     $thongbao = "Tài khoản hoặc mật khẩu sai!";
@@ -80,15 +73,12 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             exit();
             break;
 
-        // --- ĐOẠN BẠN ĐANG THIẾU ĐÂY NÀY ---
-        // ... Bên trong switch ($act) ...
-
         case 'edit_taikhoan':
             if(isset($_POST['capnhat']) && ($_POST['capnhat'])){
                 $user = $_POST['user']; 
                 $pass = $_POST['pass']; 
                 $email = $_POST['email']; 
-                $address = $_POST['address']; // Lấy lại địa chỉ cũ (ẩn)
+                $address = $_POST['address']; 
                 $tel = $_POST['tel']; 
                 $id = $_POST['id'];
         
@@ -99,31 +89,22 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             include "view/edit_taikhoan.php";
             break;
 
-        // --- THÊM PHẦN NÀY ---
         case 'address':
             if(isset($_POST['capnhat_address']) && ($_POST['capnhat_address'])){
-                // Chỉ lấy dữ liệu địa chỉ mới, các cái khác giữ nguyên từ form ẩn
                 $id = $_POST['id'];
-                $address = $_POST['address']; // Địa chỉ mới nhập
-                
+                $address = $_POST['address'];
                 $user = $_POST['user'];
                 $pass = $_POST['pass'];
                 $email = $_POST['email'];
                 $tel = $_POST['tel'];
 
-                // Gọi hàm update (Dùng chung hàm update_user vì ta đang lưu vào bảng users)
                 update_user($id, $user, $pass, $email, $address, $tel);
-                
-                // Cập nhật session
                 $_SESSION['user'] = check_user($user, $pass);
                 $thongbao = "Đã lưu địa chỉ mới!";
             }
-            // Lấy dữ liệu user hiện tại để hiển thị
             if(isset($_SESSION['user'])) extract($_SESSION['user']);
             include "view/address.php";
             break;
-        // ---------------------
-        // ------------------------------------
 
         /* ===============================
            2. GIỎ HÀNG
@@ -134,7 +115,7 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
                 $name = $_POST['name'];
                 $img = $_POST['img'];
                 $price = $_POST['price'];
-                $soluong = 1;
+                $soluong = isset($_POST['soluong']) ? $_POST['soluong'] : 1; // Lấy số lượng từ form
 
                 $fl = 0;
                 for ($i = 0; $i < count($_SESSION['mycart']); $i++) {
@@ -165,7 +146,6 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             
         case 'inc_cart':
         case 'dec_cart':
-            // Logic tăng giảm giữ nguyên như cũ
              if(isset($_GET['i'])){
                 $i = $_GET['i'];
                 if($act == 'inc_cart') $_SESSION['mycart'][$i][4]++;
@@ -181,66 +161,6 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             include "view/viewcart.php";
             break;
 
-        /* ===============================
-           3. SẢN PHẨM (DANH SÁCH - CHI TIẾT)
-        ==================================*/
-       /* ===============================
-           3. SẢN PHẨM (TÌM KIẾM & LỌC)
-        ==================================*/
-        case 'products':
-            // 1. Lấy từ khóa tìm kiếm (Nếu có nhập ở Header)
-            if(isset($_POST['kyw']) && $_POST['kyw'] != ""){
-                $kyw = $_POST['kyw'];
-            } else {
-                $kyw = "";
-            }
-
-            // 2. Lấy ID danh mục (Nếu bấm vào danh mục)
-            if(isset($_GET['iddm']) && $_GET['iddm'] > 0){
-                $iddm = $_GET['iddm'];
-            } else {
-                $iddm = 0;
-            }
-
-            // 3. Gọi hàm tìm kiếm (Hàm này đã có trong model/product.php)
-            if(function_exists('loadall_sanpham')){
-                $dssp = loadall_sanpham($kyw, $iddm);
-            } else {
-                $dssp = loadall_product_home(); // Dự phòng nếu chưa có hàm kia
-            }
-            
-            // 4. Cập nhật tên tiêu đề trang cho đẹp
-            if($kyw != "") $title_page = 'Kết quả tìm kiếm: "'.$kyw.'"';
-            else if($iddm > 0) $title_page = "Sản phẩm theo danh mục";
-            else $title_page = "Tất cả sản phẩm";
-
-            include "view/products.php";
-            break;
-
-        case 'product_detail':
-            if(isset($_GET['id']) && ($_GET['id'] > 0)){
-                $id = $_GET['id'];
-                tang_luotxem($id);
-                if(function_exists('loadone_product')){
-                    $onesp = loadone_product($id);
-                    if(is_array($onesp)){
-                        extract($onesp); // Quan trọng để có biến $name, $price...
-                        include "view/product_detail.php"; 
-                    } else {
-                        // Nếu không tìm thấy sản phẩm thì về trang chủ
-                        include "view/home.php";
-                    }
-                } else {
-                    include "view/home.php";
-                }
-            } else {
-                include "view/home.php";
-            }
-            break;
-
-        /* ===============================
-           4. THANH TOÁN & LỊCH SỬ ĐƠN HÀNG
-        ==================================*/
         case 'bill':
             if(isset($_POST['dongydathang'])){
                 $name = $_POST['hoten'];
@@ -293,53 +213,81 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             break;
 
         /* ===============================
-           4. SẢN PHẨM & KHÁC
+           3. SẢN PHẨM 
         ==================================*/
         case 'products':
-            $dssp = loadall_product_home();
+            if(isset($_POST['kyw']) && $_POST['kyw'] != ""){
+                $kyw = $_POST['kyw'];
+            } else {
+                $kyw = "";
+            }
+            if(isset($_GET['iddm']) && $_GET['iddm'] > 0){
+                $iddm = $_GET['iddm'];
+            } else {
+                $iddm = 0;
+            }
+
+            if(function_exists('loadall_sanpham')){
+                $dssp = loadall_sanpham($kyw, $iddm);
+            } else {
+                $dssp = loadall_product_home();
+            }
+            
+            if($kyw != "") $title_page = 'Kết quả tìm kiếm: "'.$kyw.'"';
+            else if($iddm > 0) $title_page = "Sản phẩm theo danh mục";
+            else $title_page = "Tất cả sản phẩm";
+
             include "view/products.php";
             break;
-            
+
         case 'product_detail':
             if(isset($_GET['id']) && ($_GET['id'] > 0)){
                 $id = $_GET['id'];
-                $onesp = loadone_product($id);
-                extract($onesp);
-                include "view/product_detail.php"; 
+                tang_luotxem($id);
+                
+                // Lấy thông tin sản phẩm (đã sửa đúng tên hàm loadone_sanpham)
+                $onesp = loadone_sanpham($id);
+                
+                if(is_array($onesp)){
+                    extract($onesp); // Giải nén biến $name, $price, $category_id...
+                    
+                    // Lấy sản phẩm cùng loại
+                    if(function_exists('load_product_cungloai')){
+                        $sp_cungloai = load_product_cungloai($id, $category_id);
+                    } else {
+                        $sp_cungloai = []; // Tránh lỗi nếu hàm chưa có
+                    }
+                    
+                    include "view/product_detail.php"; 
+                } else {
+                    include "view/home.php";
+                }
             } else {
                 include "view/home.php";
             }
             break;
-            
+
+        /* ===============================
+           4. TIN TỨC & GIẢI PHÁP
+        ==================================*/
         case 'tintuc':
             $dstintuc = loadall_tintuc(); 
             include "view/news.php";
             break;
+
         case 'tintuc_chitiet':
             if(isset($_GET['id']) && ($_GET['id'] > 0)){
                 $id = $_GET['id'];
-                // Gọi hàm lấy dữ liệu bài viết
                 $onesp = loadone_tintuc($id);
-                extract($onesp); // Giải nén để có các biến $tieude, $noidung...
-                
-                // Cập nhật lượt xem (nếu muốn, chưa cần thiết ngay)
-                // update_view_tintuc($id); 
-
+                extract($onesp);
                 include "view/news_detail.php";
             } else {
                 include "view/news.php";
             }
             break;
-        case 'lienhe':
-            include "view/contact.php";
-            break;
-            
-        default:
-            include "view/home.php";
-            break;
-        /* --- KHU VỰC GIẢI PHÁP --- */
+
         case 'giai_phap':
-            $ds_giaiphap = loadall_solutions(); // Lấy dữ liệu từ DB
+            $ds_giaiphap = loadall_solutions(); 
             include "view/solutionsp.php";
             break;
 
@@ -347,14 +295,21 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             if(isset($_GET['id']) && ($_GET['id'] > 0)){
                 $id = $_GET['id'];
                 $one_sol = loadone_solution($id);
-                extract($one_sol);
+                if(is_array($one_sol)) extract($one_sol);
                 include "view/solution_detail.php";
             } else {
                 include "view/solutionsp.php";
             }
             break;
+
+        /* ===============================
+           5. LIÊN HỆ
+        ==================================*/
+        case 'lienhe':
+            include "view/contact.php";
+            break;
+            
         case 'gui_lienhe':
-            // Chỉ cần kiểm tra isset là đủ
             if(isset($_POST['gui_lh'])){
                 $name = $_POST['hoten'];
                 $email = $_POST['email'];
@@ -368,9 +323,10 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
             include "view/contact.php";
             break;
 
-        
+        default:
+            include "view/home.php";
+            break;
     }
-      
 
 } else {
     include "view/home.php";        
