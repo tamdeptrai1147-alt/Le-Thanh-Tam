@@ -58,7 +58,7 @@
                                 <td>
                                     <a href="index.php?act=chitietdh&id='.$id.'"><button style="background: #00e676; color: #000; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-weight: bold; margin-right: 5px;"><i class="fa-solid fa-eye"></i></button></a>
                                     <a href="'.$suadh.'"><button style="background: #2979ff; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;"><i class="fa-solid fa-pen-to-square"></i></button></a>
-                                    <a href="'.$xoadh.'" onclick="return confirm(\'Xóa đơn này?\')"><button style="background: #333; color: #fff; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-left: 5px;"><i class="fa-solid fa-trash"></i></button></a>
+                                    
                                 </td>
                             </tr>';
                         }
