@@ -81,5 +81,18 @@ function loadall_bill_home(){
     $listbill = pdo_query($sql);
     return $listbill;
 }
+// Hàm tính tổng tiền các đơn hàng hợp lệ (TRỪ đơn hủy - status 4)
+function get_tong_tien_da_mua($iduser){
+    $sql = "SELECT SUM(total) as tongtien FROM bill WHERE iduser='$iduser' AND bill_status <> 4";
+    $result = pdo_query_one($sql);
+    return $result['tongtien'] ? $result['tongtien'] : 0;
+}
+
+// Hàm đếm số lượng đơn hàng ĐÃ HỦY (status 4)
+function get_so_don_huy($iduser){
+    $sql = "SELECT COUNT(*) as so_luong FROM bill WHERE iduser='$iduser' AND bill_status = 4";
+    $result = pdo_query_one($sql);
+    return $result['so_luong'] ? $result['so_luong'] : 0;
+}
 
 ?>

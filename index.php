@@ -195,7 +195,15 @@ if(isset($_GET['act']) && ($_GET['act'] != "")) {
         case 'mybill':
             if(isset($_SESSION['user'])){
                 $iduser = $_SESSION['user']['id'];
+                
+                // Lấy danh sách đơn hàng (Code cũ giữ nguyên)
                 $listbill = loadall_bill($iduser);
+                
+                // --- THÊM 2 DÒNG NÀY ---
+                $tongTienDaMua = get_tong_tien_da_mua($iduser);
+                $soDonHuy = get_so_don_huy($iduser);
+                // -----------------------
+                
                 include "view/mybill.php";
             } else {
                 header('Location: index.php?act=dangnhap');
