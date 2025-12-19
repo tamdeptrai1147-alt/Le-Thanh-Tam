@@ -25,4 +25,9 @@ function update_danhmuc($id, $tenloai){
     $sql = "UPDATE categories SET name='".$tenloai."' WHERE id=".$id;
     pdo_execute($sql);
 }
+// Hàm cập nhật trạng thái ẩn/hiện cho danh mục
+function update_status_dm($id, $status){
+    $sql = "UPDATE categories SET status = '".$status."' WHERE id = ".$id;
+    pdo_execute($sql);
+}
 ?>

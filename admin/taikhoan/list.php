@@ -51,8 +51,7 @@
                                 <td>'.$tel.'</td>
                                 <td>'.$form_role.'</td>
                                 <td>
-                                    <a href="'.$xoatk.'" onclick="return confirm(\'Xóa tài khoản này?\')"><button style="background: #ff1744; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;"><i class="fa-solid fa-trash"></i></button></a>
-                                </td>
+                                    
                             </tr>';
                         }
                     ?>

@@ -52,6 +52,10 @@ function tang_luotxem($id){
     $sql = "UPDATE products SET view = view + 1 WHERE id=".$id;
     pdo_execute($sql);
 }
+function update_status_sp($id, $status){
+    $sql = "UPDATE products SET status = '".$status."' WHERE id = ".$id; // Đã sửa thành products
+    pdo_execute($sql);
+}
 function load_product_cungloai($id, $iddm){
     // 1. Thử lấy sản phẩm cùng danh mục (trừ sản phẩm đang xem)
     $sql = "SELECT * FROM products WHERE category_id=".$iddm." AND id <> ".$id." LIMIT 0,4";

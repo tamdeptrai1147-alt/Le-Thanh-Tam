@@ -40,7 +40,14 @@
                 $listdanhmuc = loadall_category(); 
                 include "danhmuc/list.php";
                 break;
-
+case 'an_hien_dm':
+    if(isset($_GET['id']) && isset($_GET['tt'])){
+        update_status_dm($_GET['id'], $_GET['tt']);
+    }
+    // Load lại danh sách
+    $listdanhmuc = loadall_category();
+    include "danhmuc/list.php";
+    break;
             case 'suadm':
                 if(isset($_GET['id']) && ($_GET['id']>0)){
                     $dm = loadone_danhmuc($_GET['id']);
