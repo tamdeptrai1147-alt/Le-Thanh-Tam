@@ -210,23 +210,29 @@
                 include "donhang/list.php";
                 break;
 
+            /* 👇👇👇 CHÈN THÊM ĐOẠN NÀY VÀO ĐÂY 👇👇👇 */
+            case 'thongke':
+                include "thong-ke.php";
+                break;
+            /* 👆👆👆 ------------------------------ 👆👆👆 */
+
             case 'thoat':
                 session_unset();
                 header('Location: ../index.php');
                 break;
 
             default:
-                // --- ĐÂY LÀ CHỖ THÊM CODE THỐNG KÊ (Khi bấm vào mục khác không tồn tại) ---
-                $count_sp = count_sanpham();    // Đếm sản phẩm
-                $count_bill = count_donhang();  // Đếm đơn hàng
-                $count_kh = count_taikhoan();   // Đếm khách hàng
-                $sum_total = sum_doanhthu();    // Tính tổng tiền
+                // Code trang chủ admin (Dashboard)
+                $count_sp = count_sanpham();
+                $count_bill = count_donhang();
+                $count_kh = count_taikhoan();
+                $sum_total = sum_doanhthu();
                 
                 include "home.php";
                 break;
         }
     } else {
-        // --- ĐÂY LÀ CHỖ THÊM CODE THỐNG KÊ (Khi mới vào trang admin) ---
+        // Code trang chủ admin (Khi mới vào)
         $count_sp = count_sanpham();
         $count_bill = count_donhang();
         $count_kh = count_taikhoan();
