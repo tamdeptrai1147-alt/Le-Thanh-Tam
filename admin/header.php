@@ -114,15 +114,19 @@
         <div class="brand"><i class="fa-solid fa-dragon" style="margin-right: 10px;"></i> DRAGON ADMIN</div>
         <ul class="menu">
             <li><a href="index.php" class="<?=(!isset($_GET['act']))?'active':''?>"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+            
             <li><a href="index.php?act=listdm" class="<?=(isset($_GET['act'])&&$_GET['act']=='listdm')?'active':''?>"><i class="fa-solid fa-folder"></i> Danh mục</a></li>
+            
             <li><a href="index.php?act=listsp" class="<?=(isset($_GET['act'])&&$_GET['act']=='listsp')?'active':''?>"><i class="fa-solid fa-microchip"></i> Sản phẩm</a></li>
+            
             <li><a href="index.php?act=listdh" class="<?=(isset($_GET['act'])&&$_GET['act']=='listdh')?'active':''?>"><i class="fa-solid fa-file-invoice-dollar"></i> Đơn hàng</a></li>
+            
             <li><a href="index.php?act=dskh" class="<?=(isset($_GET['act'])&&$_GET['act']=='dskh')?'active':''?>"><i class="fa-solid fa-users"></i> Khách hàng</a></li>
             
             <li>
-                <a href="thong-ke.php" class="<?= (strpos($_SERVER['REQUEST_URI'], 'thong-ke.php') !== false) ? 'active' : '' ?>">
-                    <i class="fa-solid fa-chart-pie"></i> Thống kê
-                </a>
+              <a href="index.php?act=thongke" class="<?= (isset($_GET['act']) && $_GET['act'] == 'thongke') ? 'active' : '' ?>">
+    <i class="fa-solid fa-chart-pie"></i> Thống kê
+</a>
             </li>
 
         </ul>

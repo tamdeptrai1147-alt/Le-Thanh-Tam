@@ -1,24 +1,28 @@
 <?php
-    // KẾT NỐI DATABASE (Sửa lỗi Fatal Error)
-    include_once "../model/pdo.php"; 
-
-    // --- A. DATA BIỂU ĐỒ ---
+    // KHÔNG CẦN INCLUDE PDO Ở ĐÂY NỮA (Vì index.php đã lo rồi)
+    
+    // 1. DATA BIỂU ĐỒ
+    // Lưu ý: Dùng STR_TO_DATE để xử lý ngày tháng dạng "09:22:50 01/12/2025" trong DB của ông
     $sql_revenue = "SELECT DATE(STR_TO_DATE(ngaydathang, '%H:%i:%s %d/%m/%Y')) as ngay_chuan, SUM(total) as tong_tien 
                     FROM bill WHERE bill_status >= 0 GROUP BY ngay_chuan ORDER BY ngay_chuan ASC LIMIT 7";
     $list_revenue = pdo_query($sql_revenue);
+    
     $dates = []; $totals = [];
     if(is_array($list_revenue)){
         foreach ($list_revenue as $r) { 
-            if($r['ngay_chuan']){ $dates[] = date('d/m', strtotime($r['ngay_chuan'])); $totals[] = (int)$r['tong_tien']; }
+            if($r['ngay_chuan']){ 
+                $dates[] = date('d/m', strtotime($r['ngay_chuan'])); 
+                $totals[] = (int)$r['tong_tien']; 
+            }
         }
     }
 
-    // --- B. DATA TRẠNG THÁI ---
+    // 2. DATA TRẠNG THÁI
     $list_stt = pdo_query("SELECT bill_status, COUNT(*) as sl FROM bill GROUP BY bill_status");
     $stt_data = [0,0,0,0];
     if(is_array($list_stt)){ foreach($list_stt as $s) { if(isset($stt_data[$s['bill_status']])) $stt_data[$s['bill_status']] = $s['sl']; } }
 
-    // --- C. DATA TOP SP ---
+    // 3. DATA TOP SẢN PHẨM
     $top_sp = pdo_query("SELECT name, img, price, SUM(soluong) as da_ban FROM cart GROUP BY idpro ORDER BY da_ban DESC LIMIT 5");
 ?>
 
@@ -51,7 +55,7 @@
                 <?php if($top_sp): foreach($top_sp as $sp): ?>
                 <tr style="border-bottom:1px solid #333;">
                     <td style="padding:10px; display:flex; align-items:center;">
-                        <img src="../upload/<?=$sp['img']?>" onerror="this.src='https://via.placeholder.com/40'" style="width:40px; height:40px; margin-right:10px; object-fit:cover;">
+                        <img src="../upload/<?=$sp['img']?>" onerror="this.src='https://via.placeholder.com/40'" style="width:40px; height:40px; margin-right:10px; object-fit:cover; border:1px solid #444;">
                         <?=$sp['name']?>
                     </td>
                     <td style="padding:10px; color:#ffab00; font-weight:bold;"><?=number_format($sp['price'])?>đ</td>
