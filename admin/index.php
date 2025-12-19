@@ -171,6 +171,18 @@ case 'an_hien_dm':
                 $listsanpham = loadall_sanpham("", 0); 
                 include "sanpham/list.php";
                 break;
+                // Chèn vào sau case 'updatesp'
+case 'an_hien_sp':
+    if(isset($_GET['id']) && isset($_GET['tt'])){
+        $id = $_GET['id'];
+        $tt = $_GET['tt'];
+        update_status_sp($id, $tt); // Gọi hàm từ model/product.php
+    }
+    // Sau khi xử lý xong, load lại danh sách sản phẩm
+    $listdanhmuc = loadall_category();
+    $listsanpham = loadall_sanpham("", 0); 
+    include "sanpham/list.php";
+    break;
                 /* --- QUẢN LÝ ĐƠN HÀNG --- */
             case 'listdh':
                 $kyw = isset($_POST['kyw']) ? $_POST['kyw'] : "";
