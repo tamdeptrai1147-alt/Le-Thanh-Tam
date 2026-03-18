@@ -16,6 +16,4 @@
 - PHP
 - MySQL
 
-## Tác giả
-Lê Thanh Tâm
-Sinh viên FPT Polytechnic
+
